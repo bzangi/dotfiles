@@ -1,0 +1,37 @@
+{
+    "claudeCode.preferredLocation": "panel",
+    "workbench.activityBar.location": "top",
+    "workbench.sideBar.location": "right",
+    "cSpell.userWords": [
+      "celcoin",
+      "COBRANSAAS",
+      "dataprev"
+    ],
+    "[typescript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "editor.detectIndentation": false,
+    "git.mergeEditor": true,
+    "editor.tabSize": 2,
+    "editor.minimap.enabled": false,
+    "workbench.colorTheme": "Gojo Limitless Light",
+    "gitlens.ai.model": "vscode",
+    "gitlens.ai.vscode.model": "copilot:gpt-4.1",
+    "[json]": {
+      "editor.defaultFormatter": "vscode.json-language-features"
+    },
+    "cSpell.language": "en,pt,pt-BR",
+    "typescript.experimental.useTsgo": true,
+    "[typescriptreact]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "chat.viewSessions.orientation": "stacked",
+    "editor.lineNumbers": "on",
+    "workbench.iconTheme": "ayu",
+    "material-icon-theme.folders.theme": "classic",
+    "terminal.integrated.fontSize": 13,
+    "editor.fontFamily": "JetBrainsMono Nerd Font Mono",
+    "workbench.settings.applyToAllProfiles": [
+      "editor.fontFamily"
+    ]
+}
