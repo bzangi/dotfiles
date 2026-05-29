@@ -1,0 +1,80 @@
+# ~/.config/starship-light.toml
+# Prompt de duas linhas otimizado pra fundo CLARO.
+# Cores em hex (truecolor — iTerm2 suporta nativamente).
+# Requer Nerd Font para os ícones renderizarem.
+#
+# Trocar entre light/dark: comando `theme light` ou `theme dark` no shell.
+
+# Layout duas linhas:
+#   linha 1: ╭─ + folder + path + git + node + aws                              hora
+#   linha 2: ╰─ + ❯
+# right_format renderiza alinhado à direita do terminal (recalcula em resize).
+format = """
+[╭─](#626262) $directory$git_branch$git_status$nodejs$aws
+[╰─](#626262)$character"""
+right_format = "$time"
+
+# Mantém linha em branco antes de cada prompt (respiração visual)
+add_newline = true
+
+[character]
+format = "$symbol "
+success_symbol = "[❯](#5f5f87)"
+error_symbol   = "[❯](#af0000)"
+
+[directory]
+# Fora de repo git: path truncado aos 3 últimos componentes
+format = "[ ](#005f87)[$path]($style) "
+style  = "fg=#005f87"
+truncation_length = 3
+truncation_symbol = "…/"
+
+# Dentro de repo git: mostra "repo-name/sub/path" — corta o $before_root_path
+# (que seria "~/code/" ou similar). Nome do repo em negrito pra destacar.
+truncate_to_repo = true
+# Nota: dentro de repo_root_format o $style do módulo não resolve, então
+# hardcoda o hex no $path. O repo_root usa $repo_root_style (bold + cor).
+repo_root_format = "[ ](#005f87)[$repo_root]($repo_root_style)[$path](#005f87) "
+repo_root_style  = "bold #005f87"
+
+[git_branch]
+format = "[ $branch](#5f8700)"
+symbol = ""
+
+# Indicador de "sujo" — qualquer mudança vira ✗ vermelho terra
+[git_status]
+format = "[ $all_status$ahead_behind]($style) "
+style  = "fg=#af0000"
+modified   = "✗"
+untracked  = "*"
+staged     = "+"
+conflicted = "="
+ahead      = "⇡${count}"
+behind     = "⇣${count}"
+diverged   = "⇕"
+stashed    = ""
+deleted    = "✘"
+renamed    = "»"
+
+# Só aparece quando o cwd (ou ancestral) tem package.json/.nvmrc/node_modules
+[nodejs]
+format = "[ $version](#5f8700) "
+symbol = ""
+detect_extensions = []  # sobrescreve default ["js","ts",...] — só triggers explícitos abaixo
+detect_files   = ["package.json", ".nvmrc", ".node-version"]
+detect_folders = ["node_modules"]
+
+# Só aparece quando $profile não-vazio — `(...)` é grupo opcional do Starship:
+# se qualquer variável dentro estiver vazia, o grupo todo some.
+# force_display=true faz o módulo sempre processar (default só ativa se
+# AWS_ACCESS_KEY_ID setado, o que não é o padrão usando SSO/aws-vault).
+[aws]
+format = "([󰸏 $profile](#875f00) )"
+symbol = ""
+force_display = true
+
+[time]
+disabled    = false
+format      = "[$time]($style)"
+style       = "fg=#878787"
+time_format = "%H:%M"

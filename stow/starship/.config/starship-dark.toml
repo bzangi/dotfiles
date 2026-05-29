@@ -1,0 +1,61 @@
+# ~/.config/starship-dark.toml
+# Prompt de duas linhas otimizado pra fundo ESCURO.
+# Espelho do starship-light.toml — só as cores mudam.
+
+format = """
+[╭─](#7c7c7c) $directory$git_branch$git_status$nodejs$aws
+[╰─](#7c7c7c)$character"""
+right_format = "$time"
+
+add_newline = true
+
+[character]
+format = "$symbol "
+success_symbol = "[❯](#afafd7)"
+error_symbol   = "[❯](#ff8787)"
+
+[directory]
+format = "[ ](#5fafd7)[$path]($style) "
+style  = "fg=#5fafd7"
+truncation_length = 3
+truncation_symbol = "…/"
+
+truncate_to_repo = true
+repo_root_format = "[ ](#5fafd7)[$repo_root]($repo_root_style)[$path](#5fafd7) "
+repo_root_style  = "bold #5fafd7"
+
+[git_branch]
+format = "[ $branch](#afd75f)"
+symbol = ""
+
+[git_status]
+format = "[ $all_status$ahead_behind]($style) "
+style  = "fg=#ff8787"
+modified   = "✗"
+untracked  = "*"
+staged     = "+"
+conflicted = "="
+ahead      = "⇡${count}"
+behind     = "⇣${count}"
+diverged   = "⇕"
+stashed    = ""
+deleted    = "✘"
+renamed    = "»"
+
+[nodejs]
+format = "[ $version](#afd75f) "
+symbol = ""
+detect_extensions = []  # sobrescreve default ["js","ts",...] — só triggers explícitos abaixo
+detect_files   = ["package.json", ".nvmrc", ".node-version"]
+detect_folders = ["node_modules"]
+
+[aws]
+format = "([󰸏 $profile](#ffaf5f) )"
+symbol = ""
+force_display = true
+
+[time]
+disabled    = false
+format      = "[$time]($style)"
+style       = "fg=#bcbcbc"
+time_format = "%H:%M"
