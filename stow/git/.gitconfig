@@ -1,0 +1,21 @@
+[user]
+	name = Bruno Zangirolami
+	email = bruno@bullcredtech.com
+[alias]
+	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+[init]
+	defaultBranch = main
+[color "decorate"]
+	HEAD = bold 124
+	branch = bold 28
+	remoteBranch = bold 94
+	tag = bold 60
+	stash = bold 124
+[color "diff"]
+	commit = bold 94
+	meta = 60
+	frag = bold 94
+	func = 60
+	old = 124
+	new = 28
+	whitespace = reverse 124
