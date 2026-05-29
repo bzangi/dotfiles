@@ -19,3 +19,6 @@
 	old = 124
 	new = 28
 	whitespace = reverse 124
+
+[include]
+    path = ~/.gitconfig.local
