@@ -249,3 +249,7 @@ if defaults read -g AppleInterfaceStyle 2>/dev/null | grep -qi dark; then
 else
   theme light
 fi
+
+# Source per-machine overrides (gitignored). Coloca env vars privadas,
+# aliases de trabalho, AWS_PROFILE alternativo aqui.
+[[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
