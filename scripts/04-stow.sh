@@ -22,7 +22,14 @@ backup_conflicts() {
   while IFS= read -r -d '' src; do
     local rel="${src#"$pkg_dir"/}"
     local dest="$HOME/$rel"
-    if [[ -e "$dest" && ! -L "$dest" ]]; then
+    # Symlink que já aponta pro próprio arquivo do repo: stow -R cuida (não é conflito).
+    if [[ -L "$dest" && "$dest" -ef "$src" ]]; then
+      continue
+    fi
+
+    # Arquivo regular, symlink "estrangeiro" (aponta pra outro lugar), broken symlink,
+    # ou diretório no caminho: faz backup pra não abortar o stow com erro cru.
+    if [[ -e "$dest" || -L "$dest" ]]; then
       mkdir -p "$(dirname "$BACKUP_DIR/$rel")"
       mv "$dest" "$BACKUP_DIR/$rel"
       echo "  backed up $dest → $BACKUP_DIR/$rel"
@@ -39,9 +46,13 @@ if [[ -d "$BACKUP_DIR" ]]; then
   echo "ℹ Backups de arquivos preexistentes em: $BACKUP_DIR"
 fi
 
-# -R = restow (delete + create), idempotente em re-runs
+# -R = restow (delete + create), idempotente em re-runs.
+# --no-folding = nunca substitui um diretório por um symlink (tree-folding). Sem isso,
+# num Mac limpo onde ~/.config / ~/.claude ainda não existem, o stow linkaria o
+# diretório inteiro pro repo, fazendo apps (gh, iterm2, Claude Code) escreverem dentro
+# do working tree — poluindo o git status e arriscando commitar segredos.
 echo "→ Running stow..."
 cd "$STOW_DIR"
-stow -R -t "$HOME" "${PACKAGES[@]}"
+stow -R --no-folding -t "$HOME" "${PACKAGES[@]}"
 
 echo "✓ stow concluído"

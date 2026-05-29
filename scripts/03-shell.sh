@@ -2,6 +2,10 @@
 # Instala oh-my-zsh + plugins. Idempotente.
 set -euo pipefail
 
+# Dependências (standalone-safe): o installer do oh-my-zsh usa curl, plugins usam git.
+command -v git  &>/dev/null || { echo "✗ git ausente — rode scripts/01-prereqs.sh primeiro"  >&2; exit 1; }
+command -v curl &>/dev/null || { echo "✗ curl ausente — rode scripts/01-prereqs.sh primeiro" >&2; exit 1; }
+
 # --- Oh My Zsh ---
 if [[ ! -d "$HOME/.oh-my-zsh" ]]; then
   echo "→ Instalando oh-my-zsh..."

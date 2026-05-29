@@ -13,13 +13,13 @@ fi
 
 # Copia settings.json (sobrescreve)
 if [[ -f "$REPO_ROOT/vscode/settings.json" ]]; then
-  cp "$REPO_ROOT/vscode/settings.json" "$VSCODE_USER/settings.json"
+  cp -f "$REPO_ROOT/vscode/settings.json" "$VSCODE_USER/settings.json"
   echo "✓ settings.json"
 fi
 
 # Copia keybindings.json se existe
 if [[ -f "$REPO_ROOT/vscode/keybindings.json" ]]; then
-  cp "$REPO_ROOT/vscode/keybindings.json" "$VSCODE_USER/keybindings.json"
+  cp -f "$REPO_ROOT/vscode/keybindings.json" "$VSCODE_USER/keybindings.json"
   echo "✓ keybindings.json"
 fi
 

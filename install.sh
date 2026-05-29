@@ -10,6 +10,16 @@ echo " Dotfiles bootstrap — iniciando"
 echo "════════════════════════════════════════════════════════"
 
 bash scripts/01-prereqs.sh
+
+# O 01 instala o brew, mas o PATH não propaga entre sub-scripts (cada um roda
+# como processo `bash` separado). Coloca o brew no PATH DESTE processo install.sh
+# pra que 02-brew e 04-stow herdem /opt/homebrew/bin numa máquina limpa.
+if [[ -x /opt/homebrew/bin/brew ]]; then
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+elif [[ -x /usr/local/bin/brew ]]; then
+  eval "$(/usr/local/bin/brew shellenv)"
+fi
+
 bash scripts/02-brew.sh
 bash scripts/03-shell.sh
 bash scripts/04-stow.sh

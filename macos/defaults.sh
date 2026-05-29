@@ -2,7 +2,7 @@
 set -euo pipefail
 
 # Aplicado pelo scripts/06-macos.sh ou rodado standalone.
-# 19 defaults capturados da máquina atual em 2026-05-29.
+# 21 defaults capturados da máquina atual em 2026-05-29.
 
 # ================================ KEYBOARD ================================
 defaults write -g ApplePressAndHoldEnabled -bool false
