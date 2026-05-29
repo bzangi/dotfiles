@@ -24,7 +24,7 @@
 - Create: `~/Desktop/personal/dotfiles/macos/`
 - Create: `~/Desktop/personal/dotfiles/vscode/`
 
-- [ ] **Step 1: Create the directory tree**
+- [x] **Step 1: Create the directory tree**
 
 ```bash
 cd ~/Desktop/personal/dotfiles
@@ -32,7 +32,7 @@ mkdir -p stow/{zsh,git,starship/.config,claude/.claude}
 mkdir -p scripts macos vscode
 ```
 
-- [ ] **Step 2: Verify**
+- [x] **Step 2: Verify**
 
 ```bash
 tree -L 3 -a ~/Desktop/personal/dotfiles | head -20
@@ -40,7 +40,7 @@ tree -L 3 -a ~/Desktop/personal/dotfiles | head -20
 
 Expected: shows all created dirs plus the existing `.git`, `SPEC.md`, `CLAUDE.md`.
 
-- [ ] **Step 3: Commit**
+- [x] **Step 3: Commit**
 
 ```bash
 # Stow won't pick up empty dirs; add .gitkeep placeholders for now
@@ -57,7 +57,7 @@ git commit -m "scaffold: create dotfiles directory structure"
 **Files:**
 - Create: `~/Desktop/personal/dotfiles/.gitignore`
 
-- [ ] **Step 1: Write the file**
+- [x] **Step 1: Write the file**
 
 ```gitignore
 # Local overrides — per-machine, NEVER commit
@@ -86,7 +86,7 @@ id_ed25519*
 .dotfiles-backup/
 ```
 
-- [ ] **Step 2: Verify it parses**
+- [x] **Step 2: Verify it parses**
 
 ```bash
 cd ~/Desktop/personal/dotfiles
@@ -95,7 +95,7 @@ git check-ignore -v -- .DS_Store .zshrc.local nonexistent
 
 Expected: `.DS_Store` and `.zshrc.local` show as ignored, `nonexistent` does not match.
 
-- [ ] **Step 3: Commit**
+- [x] **Step 3: Commit**
 
 ```bash
 git add .gitignore
@@ -111,13 +111,13 @@ git commit -m "scaffold: add .gitignore for local files and secrets"
 **Files:**
 - Create: `~/Desktop/personal/dotfiles/stow/zsh/.zshrc` (from `~/.zshrc`)
 
-- [ ] **Step 1: Copy current .zshrc into the repo**
+- [x] **Step 1: Copy current .zshrc into the repo**
 
 ```bash
 cp ~/.zshrc ~/Desktop/personal/dotfiles/stow/zsh/.zshrc
 ```
 
-- [ ] **Step 2: Verify byte-identical**
+- [x] **Step 2: Verify byte-identical**
 
 ```bash
 diff -q ~/.zshrc ~/Desktop/personal/dotfiles/stow/zsh/.zshrc
@@ -125,13 +125,13 @@ diff -q ~/.zshrc ~/Desktop/personal/dotfiles/stow/zsh/.zshrc
 
 Expected: no output (files identical).
 
-- [ ] **Step 3: Remove placeholder**
+- [x] **Step 3: Remove placeholder**
 
 ```bash
 rm ~/Desktop/personal/dotfiles/stow/zsh/.gitkeep
 ```
 
-- [ ] **Step 4: Commit**
+- [x] **Step 4: Commit**
 
 ```bash
 cd ~/Desktop/personal/dotfiles
@@ -148,20 +148,20 @@ git commit -m "capture: snapshot of ~/.zshrc"
 - Create: `~/Desktop/personal/dotfiles/stow/git/.gitconfig`
 - Create: `~/Desktop/personal/dotfiles/stow/git/.gitignore_global` (if exists)
 
-- [ ] **Step 1: Copy .gitconfig**
+- [x] **Step 1: Copy .gitconfig**
 
 ```bash
 cp ~/.gitconfig ~/Desktop/personal/dotfiles/stow/git/.gitconfig
 ```
 
-- [ ] **Step 2: Copy .gitignore_global if exists**
+- [x] **Step 2: Copy .gitignore_global if exists**
 
 ```bash
 [[ -f ~/.gitignore_global ]] && cp ~/.gitignore_global ~/Desktop/personal/dotfiles/stow/git/.gitignore_global
 ls ~/Desktop/personal/dotfiles/stow/git/
 ```
 
-- [ ] **Step 3: Verify**
+- [x] **Step 3: Verify**
 
 ```bash
 diff -q ~/.gitconfig ~/Desktop/personal/dotfiles/stow/git/.gitconfig
@@ -169,7 +169,7 @@ diff -q ~/.gitconfig ~/Desktop/personal/dotfiles/stow/git/.gitconfig
 
 Expected: no output.
 
-- [ ] **Step 4: Commit**
+- [x] **Step 4: Commit**
 
 ```bash
 cd ~/Desktop/personal/dotfiles
@@ -187,14 +187,14 @@ git commit -m "capture: snapshot of ~/.gitconfig"
 - Create: `~/Desktop/personal/dotfiles/stow/starship/.config/starship-light.toml`
 - Create: `~/Desktop/personal/dotfiles/stow/starship/.config/starship-dark.toml`
 
-- [ ] **Step 1: Copy both TOMLs**
+- [x] **Step 1: Copy both TOMLs**
 
 ```bash
 cp ~/.config/starship-light.toml ~/Desktop/personal/dotfiles/stow/starship/.config/
 cp ~/.config/starship-dark.toml  ~/Desktop/personal/dotfiles/stow/starship/.config/
 ```
 
-- [ ] **Step 2: Verify bytes preserved (Nerd Font icons are UTF-8 PUA chars)**
+- [x] **Step 2: Verify bytes preserved (Nerd Font icons are UTF-8 PUA chars)**
 
 ```bash
 for icon_bytes in "ef81bb" "ee82a0" "eeb48d" "f3b0b88f" "ef8687"; do
@@ -206,7 +206,7 @@ done
 
 Expected: each row shows `orig=N copy=N` with matching counts (folder, git, node, aws, archive icons present).
 
-- [ ] **Step 3: Commit**
+- [x] **Step 3: Commit**
 
 ```bash
 cd ~/Desktop/personal/dotfiles
@@ -225,7 +225,7 @@ git commit -m "capture: snapshot of starship-{light,dark}.toml"
 - Create: `~/Desktop/personal/dotfiles/stow/claude/.claude/settings.json` (from `~/.claude/settings.json`)
 - Create: `~/Desktop/personal/dotfiles/stow/claude/.claude/memory/` (full subtree from `~/.claude/projects/-Users-brunoz--oh-my-zsh/memory/` if exists)
 
-- [ ] **Step 1: Inspect what's in ~/.claude/**
+- [x] **Step 1: Inspect what's in ~/.claude/**
 
 ```bash
 ls -la ~/.claude/
@@ -233,7 +233,7 @@ ls -la ~/.claude/
 
 Expected: shows `CLAUDE.md`, `settings.json`, and possibly subdirs like `projects/`, `plugins/`. Note which are relevant to version.
 
-- [ ] **Step 2: Copy what makes sense**
+- [x] **Step 2: Copy what makes sense**
 
 ```bash
 DEST=~/Desktop/personal/dotfiles/stow/claude/.claude
@@ -253,7 +253,7 @@ ls -R "$DEST"
 
 Expected: lists `CLAUDE.md`, `settings.json`, and `projects/.../memory/MEMORY.md` plus any other memory files if they exist.
 
-- [ ] **Step 3: Verify no segredos no settings.json**
+- [x] **Step 3: Verify no segredos no settings.json**
 
 ```bash
 # Check for accidentally committed tokens/keys
@@ -262,7 +262,7 @@ grep -iE 'api[_-]?key|token|secret|password|bearer' "$DEST/settings.json" || ech
 
 Expected: "OK — no obvious secrets". If anything found, **stop** and review manually.
 
-- [ ] **Step 4: Commit**
+- [x] **Step 4: Commit**
 
 ```bash
 cd ~/Desktop/personal/dotfiles
@@ -279,7 +279,7 @@ git commit -m "capture: snapshot of ~/.claude/ configs"
 **Files:**
 - Create: `~/Desktop/personal/dotfiles/Brewfile`
 
-- [ ] **Step 1: Generate from current install**
+- [x] **Step 1: Generate from current install** (used `--no-vscode` per SPEC)
 
 ```bash
 cd ~/Desktop/personal/dotfiles
@@ -289,7 +289,7 @@ wc -l Brewfile
 
 Expected: ~150-200 lines covering formulas + casks + taps.
 
-- [ ] **Step 2: Verify includes critical items**
+- [x] **Step 2: Verify includes critical items**
 
 ```bash
 grep -E '^(brew|cask) "(coreutils|stow|git|starship|font-jetbrains-mono-nerd-font|visual-studio-code)"' Brewfile
@@ -297,7 +297,7 @@ grep -E '^(brew|cask) "(coreutils|stow|git|starship|font-jetbrains-mono-nerd-fon
 
 Expected: every line listed (or note if any are missing — install them now if so).
 
-- [ ] **Step 3: Commit**
+- [x] **Step 3: Commit**
 
 ```bash
 git add Brewfile
@@ -312,7 +312,7 @@ git commit -m "capture: Brewfile from current brew bundle"
 - Create: `~/Desktop/personal/dotfiles/vscode/settings.json`
 - Create: `~/Desktop/personal/dotfiles/vscode/keybindings.json` (if exists)
 
-- [ ] **Step 1: Copy**
+- [x] **Step 1: Copy**
 
 ```bash
 VSCODE_USER="$HOME/Library/Application Support/Code/User"
@@ -322,7 +322,7 @@ cp "$VSCODE_USER/settings.json"     ~/Desktop/personal/dotfiles/vscode/settings.
   cp "$VSCODE_USER/keybindings.json" ~/Desktop/personal/dotfiles/vscode/keybindings.json
 ```
 
-- [ ] **Step 2: Verify**
+- [x] **Step 2: Verify**
 
 ```bash
 ls -la ~/Desktop/personal/dotfiles/vscode/
@@ -330,7 +330,7 @@ ls -la ~/Desktop/personal/dotfiles/vscode/
 
 Expected: `settings.json` present, `keybindings.json` if it exists.
 
-- [ ] **Step 3: Commit**
+- [x] **Step 3: Commit**
 
 ```bash
 cd ~/Desktop/personal/dotfiles
@@ -349,7 +349,7 @@ git commit -m "capture: VS Code settings + keybindings"
 **Files:**
 - Create: `~/Desktop/personal/dotfiles/macos/defaults.sh`
 
-- [ ] **Step 1: Write the script**
+- [x] **Step 1: Write the script**
 
 ```bash
 cat > ~/Desktop/personal/dotfiles/macos/defaults.sh <<'EOF'
@@ -405,7 +405,7 @@ EOF
 chmod +x ~/Desktop/personal/dotfiles/macos/defaults.sh
 ```
 
-- [ ] **Step 2: Lint with shellcheck**
+- [x] **Step 2: Lint with shellcheck**
 
 ```bash
 shellcheck ~/Desktop/personal/dotfiles/macos/defaults.sh
@@ -413,7 +413,7 @@ shellcheck ~/Desktop/personal/dotfiles/macos/defaults.sh
 
 Expected: no errors. If shellcheck not installed: `brew install shellcheck` first.
 
-- [ ] **Step 3: Dry test (script should run idempotently against current machine)**
+- [x] **Step 3: Dry test (script should run idempotently against current machine)**
 
 ```bash
 bash ~/Desktop/personal/dotfiles/macos/defaults.sh
@@ -421,7 +421,7 @@ bash ~/Desktop/personal/dotfiles/macos/defaults.sh
 
 Expected: ends with "✓ macos/defaults.sh aplicado." No errors. Dock/Finder reiniciam (você verá um flicker breve).
 
-- [ ] **Step 4: Commit**
+- [x] **Step 4: Commit**
 
 ```bash
 cd ~/Desktop/personal/dotfiles
@@ -438,7 +438,7 @@ git commit -m "feat(macos): defaults.sh with 19 captured customizations"
 **Files:**
 - Create: `~/Desktop/personal/dotfiles/scripts/01-prereqs.sh`
 
-- [ ] **Step 1: Write the script**
+- [x] **Step 1: Write the script**
 
 ```bash
 cat > ~/Desktop/personal/dotfiles/scripts/01-prereqs.sh <<'EOF'
@@ -474,7 +474,7 @@ EOF
 chmod +x ~/Desktop/personal/dotfiles/scripts/01-prereqs.sh
 ```
 
-- [ ] **Step 2: Lint**
+- [x] **Step 2: Lint**
 
 ```bash
 shellcheck ~/Desktop/personal/dotfiles/scripts/01-prereqs.sh
@@ -482,7 +482,7 @@ shellcheck ~/Desktop/personal/dotfiles/scripts/01-prereqs.sh
 
 Expected: no errors.
 
-- [ ] **Step 3: Dry test (em máquina com brew já instalado deve ser no-op)**
+- [x] **Step 3: Dry test (em máquina com brew já instalado deve ser no-op)**
 
 ```bash
 bash ~/Desktop/personal/dotfiles/scripts/01-prereqs.sh
@@ -494,7 +494,7 @@ Expected:
 ✓ Homebrew em /opt/homebrew/bin/brew
 ```
 
-- [ ] **Step 4: Commit**
+- [x] **Step 4: Commit**
 
 ```bash
 cd ~/Desktop/personal/dotfiles
@@ -509,7 +509,7 @@ git commit -m "feat(scripts): 01-prereqs.sh — xcode CLI + homebrew"
 **Files:**
 - Create: `~/Desktop/personal/dotfiles/scripts/02-brew.sh`
 
-- [ ] **Step 1: Write the script**
+- [x] **Step 1: Write the script**
 
 ```bash
 cat > ~/Desktop/personal/dotfiles/scripts/02-brew.sh <<'EOF'
@@ -541,7 +541,7 @@ EOF
 chmod +x ~/Desktop/personal/dotfiles/scripts/02-brew.sh
 ```
 
-- [ ] **Step 2: Lint + dry test**
+- [x] **Step 2: Lint + dry test**
 
 ```bash
 shellcheck ~/Desktop/personal/dotfiles/scripts/02-brew.sh
@@ -550,7 +550,7 @@ bash ~/Desktop/personal/dotfiles/scripts/02-brew.sh
 
 Expected: no shellcheck errors; brew bundle install completes (idempotent — todos os formulas já estão).
 
-- [ ] **Step 3: Commit**
+- [x] **Step 3: Commit**
 
 ```bash
 cd ~/Desktop/personal/dotfiles
@@ -565,7 +565,7 @@ git commit -m "feat(scripts): 02-brew.sh — brew bundle install"
 **Files:**
 - Create: `~/Desktop/personal/dotfiles/scripts/03-shell.sh`
 
-- [ ] **Step 1: Write the script**
+- [x] **Step 1: Write the script**
 
 ```bash
 cat > ~/Desktop/personal/dotfiles/scripts/03-shell.sh <<'EOF'
@@ -605,7 +605,7 @@ EOF
 chmod +x ~/Desktop/personal/dotfiles/scripts/03-shell.sh
 ```
 
-- [ ] **Step 2: Lint + dry test**
+- [x] **Step 2: Lint + dry test**
 
 ```bash
 shellcheck ~/Desktop/personal/dotfiles/scripts/03-shell.sh
@@ -614,7 +614,7 @@ bash ~/Desktop/personal/dotfiles/scripts/03-shell.sh
 
 Expected: oh-my-zsh detectado (no-op) + 3 plugins detectados (no-op se já clonados).
 
-- [ ] **Step 3: Commit**
+- [x] **Step 3: Commit**
 
 ```bash
 cd ~/Desktop/personal/dotfiles
@@ -629,7 +629,7 @@ git commit -m "feat(scripts): 03-shell.sh — oh-my-zsh + plugins"
 **Files:**
 - Create: `~/Desktop/personal/dotfiles/scripts/04-stow.sh`
 
-- [ ] **Step 1: Write the script**
+- [x] **Step 1: Write the script**
 
 ```bash
 cat > ~/Desktop/personal/dotfiles/scripts/04-stow.sh <<'EOF'
@@ -684,7 +684,7 @@ EOF
 chmod +x ~/Desktop/personal/dotfiles/scripts/04-stow.sh
 ```
 
-- [ ] **Step 2: Lint**
+- [x] **Step 2: Lint**
 
 ```bash
 shellcheck ~/Desktop/personal/dotfiles/scripts/04-stow.sh
@@ -692,7 +692,7 @@ shellcheck ~/Desktop/personal/dotfiles/scripts/04-stow.sh
 
 Expected: no errors.
 
-- [ ] **Step 3: Dry run (em máquina atual, arquivos do $HOME serão movidos pro backup)**
+- [x] **Step 3: Dry run (em máquina atual, arquivos do $HOME serão movidos pro backup)**
 
 ⚠ **Antes de rodar:** confirma com o usuário. Esse passo move `~/.zshrc`, `~/.gitconfig`, etc pra um backup e cria symlinks. É reversível (mv de volta).
 
@@ -716,7 +716,7 @@ Expected:
 ✓ stow concluído
 ```
 
-- [ ] **Step 4: Verify symlinks foram criados**
+- [x] **Step 4: Verify symlinks foram criados**
 
 ```bash
 ls -la ~/.zshrc ~/.gitconfig ~/.config/starship-light.toml | grep -- '->'
@@ -724,7 +724,7 @@ ls -la ~/.zshrc ~/.gitconfig ~/.config/starship-light.toml | grep -- '->'
 
 Expected: 3 linhas mostrando `->` apontando pro repo.
 
-- [ ] **Step 5: Verify shell still works (sanity)**
+- [x] **Step 5: Verify shell still works (sanity)**
 
 ```bash
 zsh -i -c 'theme; echo "OK"'
@@ -732,7 +732,7 @@ zsh -i -c 'theme; echo "OK"'
 
 Expected: imprime "tema atual: light" e "OK" sem erros.
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 cd ~/Desktop/personal/dotfiles
@@ -747,7 +747,7 @@ git commit -m "feat(scripts): 04-stow.sh — symlinks com backup de conflitos"
 **Files:**
 - Create: `~/Desktop/personal/dotfiles/scripts/05-vscode.sh`
 
-- [ ] **Step 1: Write the script**
+- [x] **Step 1: Write the script**
 
 ```bash
 cat > ~/Desktop/personal/dotfiles/scripts/05-vscode.sh <<'EOF'
@@ -781,7 +781,7 @@ EOF
 chmod +x ~/Desktop/personal/dotfiles/scripts/05-vscode.sh
 ```
 
-- [ ] **Step 2: Lint + dry test**
+- [x] **Step 2: Lint + dry test**
 
 ```bash
 shellcheck ~/Desktop/personal/dotfiles/scripts/05-vscode.sh
@@ -790,7 +790,7 @@ bash ~/Desktop/personal/dotfiles/scripts/05-vscode.sh
 
 Expected: imprime "✓ settings.json" + "✓ keybindings.json" se existir. Sem erros.
 
-- [ ] **Step 3: Commit**
+- [x] **Step 3: Commit**
 
 ```bash
 cd ~/Desktop/personal/dotfiles
@@ -805,7 +805,7 @@ git commit -m "feat(scripts): 05-vscode.sh — copia settings + keybindings"
 **Files:**
 - Create: `~/Desktop/personal/dotfiles/scripts/06-macos.sh`
 
-- [ ] **Step 1: Write the script**
+- [x] **Step 1: Write the script**
 
 ```bash
 cat > ~/Desktop/personal/dotfiles/scripts/06-macos.sh <<'EOF'
@@ -826,7 +826,7 @@ EOF
 chmod +x ~/Desktop/personal/dotfiles/scripts/06-macos.sh
 ```
 
-- [ ] **Step 2: Lint + dry test**
+- [x] **Step 2: Lint + dry test**
 
 ```bash
 shellcheck ~/Desktop/personal/dotfiles/scripts/06-macos.sh
@@ -835,7 +835,7 @@ bash ~/Desktop/personal/dotfiles/scripts/06-macos.sh
 
 Expected: roda o defaults.sh, imprime "✓ macos/defaults.sh aplicado".
 
-- [ ] **Step 3: Commit**
+- [x] **Step 3: Commit**
 
 ```bash
 cd ~/Desktop/personal/dotfiles
@@ -852,7 +852,7 @@ git commit -m "feat(scripts): 06-macos.sh — wrapper de defaults"
 **Files:**
 - Create: `~/Desktop/personal/dotfiles/install.sh`
 
-- [ ] **Step 1: Write the entry point**
+- [x] **Step 1: Write the entry point**
 
 ```bash
 cat > ~/Desktop/personal/dotfiles/install.sh <<'EOF'
@@ -885,7 +885,7 @@ EOF
 chmod +x ~/Desktop/personal/dotfiles/install.sh
 ```
 
-- [ ] **Step 2: Lint**
+- [x] **Step 2: Lint**
 
 ```bash
 shellcheck ~/Desktop/personal/dotfiles/install.sh
@@ -893,7 +893,7 @@ shellcheck ~/Desktop/personal/dotfiles/install.sh
 
 Expected: no errors.
 
-- [ ] **Step 3: Smoke test (rodar inteiro contra a máquina atual)**
+- [x] **Step 3: Smoke test (rodar inteiro contra a máquina atual)**
 
 ```bash
 bash ~/Desktop/personal/dotfiles/install.sh
@@ -901,7 +901,7 @@ bash ~/Desktop/personal/dotfiles/install.sh
 
 Expected: cada sub-script reporta seu estado (mostly no-ops em máquina já configurada). Final ends com mensagem "✓ Bootstrap completo".
 
-- [ ] **Step 4: Commit**
+- [x] **Step 4: Commit**
 
 ```bash
 cd ~/Desktop/personal/dotfiles
@@ -916,7 +916,7 @@ git commit -m "feat: install.sh entry point"
 **Files:**
 - Modify: `~/Desktop/personal/dotfiles/stow/zsh/.zshrc` (last line)
 
-- [ ] **Step 1: Verifique se já não tem**
+- [x] **Step 1: Verifique se já não tem**
 
 ```bash
 grep -n 'zshrc.local' ~/Desktop/personal/dotfiles/stow/zsh/.zshrc || echo "MISSING — vou adicionar"
@@ -924,7 +924,7 @@ grep -n 'zshrc.local' ~/Desktop/personal/dotfiles/stow/zsh/.zshrc || echo "MISSI
 
 Expected: "MISSING" (assumindo que não tem). Se já tiver, skip pro próximo task.
 
-- [ ] **Step 2: Append a linha**
+- [x] **Step 2: Append a linha**
 
 ```bash
 cat >> ~/Desktop/personal/dotfiles/stow/zsh/.zshrc <<'EOF'
@@ -935,7 +935,7 @@ cat >> ~/Desktop/personal/dotfiles/stow/zsh/.zshrc <<'EOF'
 EOF
 ```
 
-- [ ] **Step 3: Verify**
+- [x] **Step 3: Verify**
 
 ```bash
 tail -5 ~/Desktop/personal/dotfiles/stow/zsh/.zshrc
@@ -943,7 +943,7 @@ tail -5 ~/Desktop/personal/dotfiles/stow/zsh/.zshrc
 
 Expected: mostra as últimas linhas com o source.
 
-- [ ] **Step 4: Smoke test em shell interativo (sem .local file ainda — silent skip)**
+- [x] **Step 4: Smoke test em shell interativo (sem .local file ainda — silent skip)**
 
 ```bash
 zsh -i -c 'echo "OK"' 2>&1 | tail -3
@@ -951,7 +951,7 @@ zsh -i -c 'echo "OK"' 2>&1 | tail -3
 
 Expected: "OK" sem erro (já que `~/.zshrc.local` não existe, o `[[ -f ]]` falha silencioso).
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 cd ~/Desktop/personal/dotfiles
@@ -966,13 +966,13 @@ git commit -m "feat(zsh): source ~/.zshrc.local at end for per-machine overrides
 **Files:**
 - Modify: `~/Desktop/personal/dotfiles/stow/git/.gitconfig`
 
-- [ ] **Step 1: Verifique se já não tem**
+- [x] **Step 1: Verifique se já não tem**
 
 ```bash
 grep -A1 '\[include\]' ~/Desktop/personal/dotfiles/stow/git/.gitconfig 2>/dev/null || echo "MISSING — vou adicionar"
 ```
 
-- [ ] **Step 2: Append a seção include**
+- [x] **Step 2: Append a seção include**
 
 ```bash
 cat >> ~/Desktop/personal/dotfiles/stow/git/.gitconfig <<'EOF'
@@ -982,7 +982,7 @@ cat >> ~/Desktop/personal/dotfiles/stow/git/.gitconfig <<'EOF'
 EOF
 ```
 
-- [ ] **Step 3: Verify git ainda funciona (não há .local; git ignora include faltando)**
+- [x] **Step 3: Verify git ainda funciona (não há .local; git ignora include faltando)**
 
 ```bash
 git config --list | head -5
@@ -990,7 +990,7 @@ git config --list | head -5
 
 Expected: lista alguns valores. Sem erro mesmo sem o .local existir.
 
-- [ ] **Step 4: Commit**
+- [x] **Step 4: Commit**
 
 ```bash
 cd ~/Desktop/personal/dotfiles
@@ -1004,7 +1004,7 @@ git commit -m "feat(git): include ~/.gitconfig.local for per-machine email"
 
 ### Task 19: Re-run install.sh end-to-end
 
-- [ ] **Step 1: Idempotency check**
+- [x] **Step 1: Idempotency check**
 
 ```bash
 bash ~/Desktop/personal/dotfiles/install.sh 2>&1 | tee /tmp/install-rerun.log
@@ -1012,7 +1012,7 @@ bash ~/Desktop/personal/dotfiles/install.sh 2>&1 | tee /tmp/install-rerun.log
 
 Expected: termina sem erro. Cada sub-script identifica que tudo já está aplicado (no-op).
 
-- [ ] **Step 2: Verifique log**
+- [x] **Step 2: Verifique log**
 
 ```bash
 grep -E '✓|→' /tmp/install-rerun.log | head -20
@@ -1020,7 +1020,7 @@ grep -E '✓|→' /tmp/install-rerun.log | head -20
 
 Expected: linhas indicam estado já configurado, sem erros.
 
-- [ ] **Step 3: Verifique que o shell funciona**
+- [x] **Step 3: Verifique que o shell funciona**
 
 ```bash
 zsh -i -c 'theme && echo $LS_COLORS | head -c 100'
@@ -1035,7 +1035,7 @@ Expected: "tema atual: light" + começo do LS_COLORS.
 **Files:**
 - Create: `~/Desktop/personal/dotfiles/README.md`
 
-- [ ] **Step 1: Write user-facing quickstart**
+- [x] **Step 1: Write user-facing quickstart**
 
 ```bash
 cat > ~/Desktop/personal/dotfiles/README.md <<'EOF'
@@ -1098,7 +1098,7 @@ Arquivos `.local` ficam em `$HOME` e são **gitignored**:
 EOF
 ```
 
-- [ ] **Step 2: Commit**
+- [x] **Step 2: Commit**
 
 ```bash
 cd ~/Desktop/personal/dotfiles
@@ -1110,7 +1110,7 @@ git commit -m "docs: README.md user-facing quickstart"
 
 ### Task 21: Push to GitHub
 
-- [ ] **Step 1: Criar o repo privado no GitHub**
+- [x] **Step 1: Criar o repo privado no GitHub** (já existia: bzangi/dotfiles, private)
 
 Manualmente ou via `gh`:
 
@@ -1122,7 +1122,7 @@ git remote -v
 
 Expected: `origin` apontando pro repo privado seu no GitHub.
 
-- [ ] **Step 2: Push**
+- [x] **Step 2: Push**
 
 ```bash
 cd ~/Desktop/personal/dotfiles
@@ -1131,7 +1131,7 @@ git push -u origin master   # ou main, dependendo da branch default
 
 Expected: push completo, com todos os commits.
 
-- [ ] **Step 3: Verificar no GitHub**
+- [x] **Step 3: Verificar no GitHub**
 
 Abrir `https://github.com/<owner>/dotfiles` no browser. Confirmar:
 - Repo é **privado**
