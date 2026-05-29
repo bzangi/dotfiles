@@ -1,0 +1,24 @@
+# Local overrides — per-machine, NEVER commit
+**/.local
+.zshrc.local
+.gitconfig.local
+Brewfile.local
+.claude/CLAUDE.local.md
+
+# Guard-rail: credentials that should never be here
+*.pem
+*.key
+id_rsa*
+id_ed25519*
+.env
+.env.*
+!.env.example
+
+# OS / editor cruft
+.DS_Store
+*.swp
+*.swo
+.idea/
+
+# Backup dirs created by 04-stow.sh
+.dotfiles-backup/
