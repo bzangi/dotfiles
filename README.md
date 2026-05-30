@@ -19,6 +19,7 @@ cd ~/Desktop/personal/dotfiles
 Depois:
 - `exec zsh` pra entrar no shell novo
 - Logout/reboot pra defaults globais (key repeat) tomarem efeito completo
+- Reabrir o iTerm2 (Cmd-Q + abrir) pra ele carregar as prefs versionadas
 - Criar `~/.zshrc.local` e `~/.gitconfig.local` com env vars/email per-machine
 
 ## Estrutura
@@ -29,8 +30,9 @@ Depois:
 | `Brewfile` | `brew bundle install` lê daqui |
 | `stow/` | arquivos que viram symlinks no `$HOME` via GNU stow |
 | `vscode/` | settings.json + keybindings.json (path em `~/Library/`) |
+| `iterm2/` | prefs do iTerm2 (custom prefs folder, load-only) |
 | `macos/defaults.sh` | todos os `defaults write` |
-| `scripts/` | sub-scripts (01-prereqs → 06-macos) |
+| `scripts/` | sub-scripts (01-prereqs → 07-iterm2) |
 
 ## Documentação
 

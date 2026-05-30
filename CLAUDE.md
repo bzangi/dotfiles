@@ -113,6 +113,27 @@ git pull
 ./install.sh    # ou só o script específico, ex: bash scripts/06-macos.sh
 ```
 
+### Atualizar config do iTerm2
+
+iTerm2 usa "Load preferences from a custom folder" (load-only) apontando pra
+`iterm2/`. Como é load-only, o iTerm **não** reescreve a pasta sozinho — pra
+versionar uma mudança você re-captura:
+
+```bash
+# 1. Mudou settings no iTerm2 (GUI). Re-captura o plist efetivo pro repo:
+cp ~/Library/Preferences/com.googlecode.iterm2.plist iterm2/com.googlecode.iterm2.plist
+plutil -convert xml1 iterm2/com.googlecode.iterm2.plist   # diffs legíveis
+
+# 2. Commit
+git add iterm2/com.googlecode.iterm2.plist
+git commit -m "iterm2: <o que mudou>"
+```
+
+**Gotcha (load-only):** o iTerm lê da pasta no launch mas salva mudanças da sessão
+em `~/Library/Preferences`. Re-capture **antes** de reabrir o iTerm — senão o
+próximo launch recarrega a versão antiga da pasta e suas mudanças somem. Apontar
+máquina nova pra essa pasta: `bash scripts/07-iterm2.sh` (e reabrir o iTerm).
+
 ---
 
 ## Arquitetura — pontos críticos

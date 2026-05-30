@@ -25,6 +25,7 @@ bash scripts/03-shell.sh
 bash scripts/04-stow.sh
 bash scripts/05-vscode.sh
 bash scripts/06-macos.sh
+bash scripts/07-iterm2.sh
 
 echo ""
 echo "════════════════════════════════════════════════════════"
