@@ -184,54 +184,47 @@ A **referência** ao `.local` está versionada no `.zshrc` / `.gitconfig`:
 O **conteúdo** dos `.local` files está no `.gitignore`. Cada máquina cria
 o próprio. Use pra: AWS profile, work email, work tokens, paths específicos.
 
-### Theme switch ↔ cores do iTerm (acoplamento)
+### Theme switch ↔ cores do iTerm (fonte única = modo do macOS)
 
-A função `theme light|dark` (em `stow/zsh/.zshrc`) troca, além de prompt
-Starship / syntax-highlighting / LS_COLORS / git colors, as **cores da sessão
-viva do iTerm** via OSC escape sequences, nas funções `_bz_iterm_light` e
-`_bz_iterm_dark`:
+A função `theme light|dark` (em `stow/zsh/.zshrc`) troca prompt Starship /
+syntax-highlighting / LS_COLORS / git colors **e dirige o appearance do macOS**
+(System Events via `osascript`), na função `_bz_macos_appearance`.
 
-- OSC 11 = background, OSC 10 = foreground, OSC 12 = cursor (escape padrão)
-- OSC 1337 `SetColors=selbg` = selection (proprietário iTerm, best-effort)
-- Guard `[[ "$TERM_PROGRAM" == "iTerm.app" ]]` — não emite escape em
-  Terminal.app, VS Code integrado, Linux, etc.
+**Quem renderiza as cores do terminal:** o profile do iTerm tem **"Use Separate
+Colors for Light and Dark Mode" = 1** (`iterm2/com.googlecode.iterm2.plist`).
+Então bg / foreground / cursor / seleção / **bold** / paleta ANSI vêm de slots
+`(Light)`/`(Dark)` no plist, escolhidos **ao vivo pelo modo do macOS**. Logo,
+fazer `theme dark` virar o macOS pra dark é o suficiente — o iTerm pinta tudo
+pelo slot certo. **Fonte única de verdade = modo do macOS.**
 
-**Por que OSC e não editar o plist:** o plist do custom folder
-(`iterm2/com.googlecode.iterm2.plist`) é lido no boot e **reescrito no quit**
-do iTerm. Editar em runtime é frágil (iTerm sobrescreve). OSC muda a sessão
-viva sem tocar no arquivo. Como `theme()` roda no startup do shell (auto-detect
-do modo macOS), toda aba nova auto-aplica a cor no 1º prompt — persistência
-de graça, sem plist.
+- Slots dark: `Background Color (Dark)` ≈ `#15191f`, `Foreground Color (Dark)`
+  ≈ `#dcdcdc`, `Bold Color (Dark)` = `#ffffff`.
+- Slots light: `Background Color (Light)` ≈ `#e2e8f0`, `Foreground Color (Light)`
+  ≈ `#101010`, `Bold Color (Light)` ≈ `#101010`.
 
-**⚠ Duplicação a manter em sync:** o profile do iTerm tem **"Use Separate Colors
-for Light and Dark Mode" = 1**. Então o bg que **renderiza** vem de um de dois
-slots no plist, escolhido pelo modo do macOS:
-- `Background Color (Light)` = `#e2e8f0` — modo claro (mesmo bg do tema VS Code
-  "Gojo Limitless Light").
-- `Background Color (Dark)` = `≈#15191f` — modo escuro.
+**⚠ system-wide:** `theme dark` troca o **macOS inteiro** pra dark (Safari, Finder,
+VS Code, tudo), não só o terminal. É intencional — vira um toggle único de tema.
 
-A key legada `Background Color` (sem sufixo) é **ignorada na renderização** sob
-separate-colors. O iTerm a mantém em `#fafafa` (sobra da 1ª captura) e a
-**reescreve no quit**, então o valor versionado dela é `#fafafa` por design —
-**não edite essa key à mão** achando que é o bg claro: foi exatamente isso que
-gerou o diff fantasma `#e2e8f0 ↔ #fafafa`. O bg claro real é o slot `(Light)`.
+**⚠ Automation/TCC no bootstrap:** o 1º `set dark mode` numa máquina nova dispara
+o prompt de permissão de **Automation** do macOS (terminal → System Events) uma
+vez. Aprovar; depois é silencioso. Sem aprovação o `osascript` falha quieto
+(`2>/dev/null`) e o tema do terminal não troca.
 
-A duplicação que importa é **OSC `_bz_iterm_*` (`.zshrc`) ↔ slots do plist**:
-mudou o bg num lugar, muda no outro, senão a janela "pisca" entre o boot (plist)
-e o 1º prompt (OSC).
+**Por que NÃO usamos OSC (histórico):** versões antigas forçavam bg/fg/cursor/seleção
+da sessão viva via OSC 11/10/12/1337 (`_bz_iterm_*`, removidas). O problema: **não
+existe OSC para a cor de bold** — então forçar dark com macOS em Light deixava o
+bold preso em `Bold Color (Light)` (≈preto) sobre bg escuro, ilegível. Dirigir o
+macOS resolve na raiz e elimina a duplicação OSC↔plist.
 
-Valores que o `theme` força via OSC (`_bz_iterm_light/dark`):
+**Key legada `Background Color` (sem sufixo):** é **ignorada na renderização** sob
+separate-colors. O iTerm a mantém em `#fafafa` (sobra da 1ª captura) e a **reescreve
+no quit**, então o valor versionado dela é `#fafafa` por design — **não edite à mão**
+achando que é o bg claro: foi isso que gerou o diff fantasma `#e2e8f0 ↔ #fafafa`.
+O bg claro real é o slot `(Light)`.
 
-| | light | dark |
-|---|---|---|
-| background | `#e2e8f0` | `#1e1e2e` |
-| foreground | `#101010` | `#e2e8f0` |
-| cursor | `#000000` | `#e2e8f0` |
-| selection | `#b3d7ff` | `#3a4a6e` |
-
-⚠ O bg **dark** diverge entre as duas fontes: slot `(Dark)` do plist = `≈#15191f`
-vs OSC `_bz_iterm_dark` = `#1e1e2e`. Só impacta modo escuro (leve "pisca" no
-boot) — alinhar quando mexer no tema dark.
+**Idempotência:** `_bz_macos_appearance` só dispara `osascript` se o modo atual
+difere do pedido. Como o auto-detect do startup (`.zshrc`) **lê** o modo do macOS e
+chama `theme`, o helper vira no-op no boot — sem latência extra por aba, sem loop.
 
 ---
 

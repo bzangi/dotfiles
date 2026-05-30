@@ -176,25 +176,20 @@ _bz_lscolors_dark() {
   zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 }
 
-# Cores do iTerm na SESSÃO VIVA via OSC escapes (NÃO toca no plist do custom
-# folder — ele é reescrito no quit, editar em runtime é frágil). Como theme()
-# roda no startup do shell, toda aba nova auto-aplica a cor no 1º prompt.
-# OSC 11=background, 10=foreground, 12=cursor; selbg via OSC 1337 (iTerm-only).
-# Guard TERM_PROGRAM: não emite escape em Terminal.app, VS Code, Linux, etc.
-_bz_iterm_light() {
-  [[ "$TERM_PROGRAM" == "iTerm.app" ]] || return 0
-  printf '\033]11;#e2e8f0\007'                  # background slate-claro (= Gojo Limitless Light)
-  printf '\033]10;#101010\007'                  # foreground near-black
-  printf '\033]12;#000000\007'                  # cursor black
-  printf '\033]1337;SetColors=selbg=b3d7ff\007' # selection light blue
-}
-
-_bz_iterm_dark() {
-  [[ "$TERM_PROGRAM" == "iTerm.app" ]] || return 0
-  printf '\033]11;#1e1e2e\007'                  # background dark slate
-  printf '\033]10;#e2e8f0\007'                  # foreground light
-  printf '\033]12;#e2e8f0\007'                  # cursor light
-  printf '\033]1337;SetColors=selbg=3a4a6e\007' # selection muted blue
+# Dirige o appearance do macOS (System Events) — fonte ÚNICA do tema do terminal.
+# O profile do iTerm tem "Use Separate Colors for Light and Dark Mode" = ON, então
+# bg/fg/cursor/seleção/BOLD/ANSI vêm dos slots (Light)/(Dark) escolhidos pelo modo
+# do macOS. Mexer só via OSC deixava o BOLD preso no slot errado (não há OSC p/ bold).
+# Idempotente: só dispara osascript se o modo difere — assim o auto-detect do startup
+# (que LÊ o modo e chama theme) não re-dispara à toa nem entra em loop.
+# Sem guard de TERM_PROGRAM: é system-wide, vale em qualquer terminal no macOS.
+_bz_macos_appearance() {
+  [[ "$OSTYPE" == darwin* ]] || return 0
+  local want=$1 cur=light
+  defaults read -g AppleInterfaceStyle 2>/dev/null | grep -qi dark && cur=dark
+  [[ "$cur" == "$want" ]] && return 0
+  local to=false; [[ "$want" == dark ]] && to=true
+  osascript -e "tell application \"System Events\" to tell appearance preferences to set dark mode to $to" 2>/dev/null
 }
 
 theme() {
@@ -204,14 +199,14 @@ theme() {
       _bz_highlight_light
       _bz_lscolors_light
       _bz_git_colors_light
-      _bz_iterm_light
+      _bz_macos_appearance light
       ;;
     dark)
       export STARSHIP_CONFIG="$HOME/.config/starship-dark.toml"
       _bz_highlight_dark
       _bz_lscolors_dark
       _bz_git_colors_dark
-      _bz_iterm_dark
+      _bz_macos_appearance dark
       ;;
     "")
       local current=light
