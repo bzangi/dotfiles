@@ -59,7 +59,7 @@ renamed    = "»"
 
 # Só aparece quando o cwd (ou ancestral) tem package.json/.nvmrc/node_modules
 [nodejs]
-format = "[ $version](#5f8700) "
+format = "[ $version](#5f8700) "
 symbol = ""
 detect_extensions = []  # sobrescreve default ["js","ts",...] — só triggers explícitos abaixo
 detect_files   = ["package.json", ".nvmrc", ".node-version"]

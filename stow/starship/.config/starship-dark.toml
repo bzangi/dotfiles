@@ -43,7 +43,7 @@ deleted    = "✘"
 renamed    = "»"
 
 [nodejs]
-format = "[ $version](#afd75f) "
+format = "[ $version](#afd75f) "
 symbol = ""
 detect_extensions = []  # sobrescreve default ["js","ts",...] — só triggers explícitos abaixo
 detect_files   = ["package.json", ".nvmrc", ".node-version"]
