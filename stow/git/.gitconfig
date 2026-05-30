@@ -5,20 +5,11 @@
 	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
 [init]
 	defaultBranch = main
-[color "decorate"]
-	HEAD = bold 124
-	branch = bold 28
-	remoteBranch = bold 94
-	tag = bold 60
-	stash = bold 124
-[color "diff"]
-	commit = bold 94
-	meta = 60
-	frag = bold 94
-	func = 60
-	old = 124
-	new = 28
-	whitespace = reverse 124
 
+# Cores de decorate/diff são theme-aware: a função `theme` (zsh) escreve em
+# ~/.gitconfig.theme (gitignored, no $HOME) a cada flip light/dark, pra não sujar
+# este arquivo versionado. .theme vem antes de .local pra .local poder sobrepor.
+# Git ignora include ausente (máquina nova, antes do 1º `theme`).
 [include]
+    path = ~/.gitconfig.theme
     path = ~/.gitconfig.local

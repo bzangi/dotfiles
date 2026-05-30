@@ -184,6 +184,14 @@ A **referência** ao `.local` está versionada no `.zshrc` / `.gitconfig`:
 O **conteúdo** dos `.local` files está no `.gitignore`. Cada máquina cria
 o próprio. Use pra: AWS profile, work email, work tokens, paths específicos.
 
+**`~/.gitconfig.theme` (parente gerado, não hand-edited):** a função `theme` (zsh)
+reescreve as cores de `decorate`/`diff` do git a cada flip light↔dark. Pra isso
+**não sujar** o `.gitconfig` versionado, ela escreve via `git config --file
+~/.gitconfig.theme` (não `--global`), e o `.gitconfig` o puxa por `[include]`.
+Mora no `$HOME`, fora do repo → nunca é trackeado. **Não edite à mão** (a próxima
+invocação do `theme` sobrescreve). ⚠ Shell antigo aberto (com a versão `--global`
+da função em memória) volta a sujar o `.gitconfig` versionado — `exec zsh` neles.
+
 ### Theme switch ↔ cores do iTerm (fonte única = modo do macOS)
 
 A função `theme light|dark` (em `stow/zsh/.zshrc`) troca prompt Starship /

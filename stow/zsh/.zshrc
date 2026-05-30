@@ -226,40 +226,42 @@ theme() {
 alias ls='gls --color=auto --group-directories-first'
 
 # Cores do `git log --decorate` (HEAD, branches, remotes, tags, stash).
-# Git escreve no ~/.gitconfig global, então persiste entre sessões — toda
-# invocação do theme reescreve. Códigos = 256-color (compatível com git antigo).
+# Escreve em ~/.gitconfig.theme (include gitignored no $HOME, NÃO o ~/.gitconfig
+# do stow) pra o flip light<->dark não sujar o .gitconfig versionado. O
+# ~/.gitconfig puxa esse arquivo via [include]; git ignora include ausente.
+# Códigos = 256-color (compatível com git antigo).
 _bz_git_colors_light() {
   # decorate (HEAD, branches, refs em git log)
-  git config --global color.decorate.HEAD         "bold 124"   # vermelho terra
-  git config --global color.decorate.branch       "bold 28"    # verde escuro
-  git config --global color.decorate.remoteBranch "bold 94"    # mostarda escura
-  git config --global color.decorate.tag          "bold 60"    # cinza-azulado
-  git config --global color.decorate.stash        "bold 124"
+  git config --file "$HOME/.gitconfig.theme" color.decorate.HEAD         "bold 124"   # vermelho terra
+  git config --file "$HOME/.gitconfig.theme" color.decorate.branch       "bold 28"    # verde escuro
+  git config --file "$HOME/.gitconfig.theme" color.decorate.remoteBranch "bold 94"    # mostarda escura
+  git config --file "$HOME/.gitconfig.theme" color.decorate.tag          "bold 60"    # cinza-azulado
+  git config --file "$HOME/.gitconfig.theme" color.decorate.stash        "bold 124"
   # diff (file/hunk metadata, linhas removidas/adicionadas)
-  git config --global color.diff.commit     "bold 94"          # hash commit em patches
-  git config --global color.diff.meta       "60"               # header arquivo
-  git config --global color.diff.frag       "bold 94"          # header @@ hunk (era cyan)
-  git config --global color.diff.func       "60"               # nome função no hunk
-  git config --global color.diff.old        "124"              # linhas removidas
-  git config --global color.diff.new        "28"               # linhas adicionadas
-  git config --global color.diff.whitespace "reverse 124"      # whitespace errors
+  git config --file "$HOME/.gitconfig.theme" color.diff.commit     "bold 94"          # hash commit em patches
+  git config --file "$HOME/.gitconfig.theme" color.diff.meta       "60"               # header arquivo
+  git config --file "$HOME/.gitconfig.theme" color.diff.frag       "bold 94"          # header @@ hunk (era cyan)
+  git config --file "$HOME/.gitconfig.theme" color.diff.func       "60"               # nome função no hunk
+  git config --file "$HOME/.gitconfig.theme" color.diff.old        "124"              # linhas removidas
+  git config --file "$HOME/.gitconfig.theme" color.diff.new        "28"               # linhas adicionadas
+  git config --file "$HOME/.gitconfig.theme" color.diff.whitespace "reverse 124"      # whitespace errors
 }
 
 _bz_git_colors_dark() {
   # decorate
-  git config --global color.decorate.HEAD         "bold 210"   # coral
-  git config --global color.decorate.branch       "bold 114"   # verde claro
-  git config --global color.decorate.remoteBranch "bold 215"   # mostarda clara
-  git config --global color.decorate.tag          "bold 146"   # lavanda
-  git config --global color.decorate.stash        "bold 210"
+  git config --file "$HOME/.gitconfig.theme" color.decorate.HEAD         "bold 210"   # coral
+  git config --file "$HOME/.gitconfig.theme" color.decorate.branch       "bold 114"   # verde claro
+  git config --file "$HOME/.gitconfig.theme" color.decorate.remoteBranch "bold 215"   # mostarda clara
+  git config --file "$HOME/.gitconfig.theme" color.decorate.tag          "bold 146"   # lavanda
+  git config --file "$HOME/.gitconfig.theme" color.decorate.stash        "bold 210"
   # diff
-  git config --global color.diff.commit     "bold 215"
-  git config --global color.diff.meta       "103"
-  git config --global color.diff.frag       "bold 215"
-  git config --global color.diff.func       "103"
-  git config --global color.diff.old        "210"
-  git config --global color.diff.new        "114"
-  git config --global color.diff.whitespace "reverse 210"
+  git config --file "$HOME/.gitconfig.theme" color.diff.commit     "bold 215"
+  git config --file "$HOME/.gitconfig.theme" color.diff.meta       "103"
+  git config --file "$HOME/.gitconfig.theme" color.diff.frag       "bold 215"
+  git config --file "$HOME/.gitconfig.theme" color.diff.func       "103"
+  git config --file "$HOME/.gitconfig.theme" color.diff.old        "210"
+  git config --file "$HOME/.gitconfig.theme" color.diff.new        "114"
+  git config --file "$HOME/.gitconfig.theme" color.diff.whitespace "reverse 210"
 }
 # Auto-detect no boot do shell baseado no modo do macOS
 if defaults read -g AppleInterfaceStyle 2>/dev/null | grep -qi dark; then
