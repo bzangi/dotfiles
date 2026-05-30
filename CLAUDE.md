@@ -184,6 +184,44 @@ A **referência** ao `.local` está versionada no `.zshrc` / `.gitconfig`:
 O **conteúdo** dos `.local` files está no `.gitignore`. Cada máquina cria
 o próprio. Use pra: AWS profile, work email, work tokens, paths específicos.
 
+### Theme switch ↔ cores do iTerm (acoplamento)
+
+A função `theme light|dark` (em `stow/zsh/.zshrc`) troca, além de prompt
+Starship / syntax-highlighting / LS_COLORS / git colors, as **cores da sessão
+viva do iTerm** via OSC escape sequences, nas funções `_bz_iterm_light` e
+`_bz_iterm_dark`:
+
+- OSC 11 = background, OSC 10 = foreground, OSC 12 = cursor (escape padrão)
+- OSC 1337 `SetColors=selbg` = selection (proprietário iTerm, best-effort)
+- Guard `[[ "$TERM_PROGRAM" == "iTerm.app" ]]` — não emite escape em
+  Terminal.app, VS Code integrado, Linux, etc.
+
+**Por que OSC e não editar o plist:** o plist do custom folder
+(`iterm2/com.googlecode.iterm2.plist`) é lido no boot e **reescrito no quit**
+do iTerm. Editar em runtime é frágil (iTerm sobrescreve). OSC muda a sessão
+viva sem tocar no arquivo. Como `theme()` roda no startup do shell (auto-detect
+do modo macOS), toda aba nova auto-aplica a cor no 1º prompt — persistência
+de graça, sem plist.
+
+**⚠ Duplicação a manter em sync:** as cores **light** existem em DOIS lugares:
+1. `iterm2/com.googlecode.iterm2.plist` → profile "Default" Background Color
+   (= default de boot, antes do 1º prompt). Hoje `#e2e8f0`
+   (RGB 0.886275/0.909804/0.941176) — mesmo bg do tema VS Code "Gojo Limitless Light".
+2. `_bz_iterm_light` no `.zshrc` → o que o `theme light` força na sessão.
+
+Se mudar o bg light num lugar, **mudar no outro também**, senão a janela
+"pisca" de uma cor pra outra entre o boot e o primeiro prompt. As cores
+**dark** só existem em `_bz_iterm_dark` (o profile do plist é light-only).
+
+Valores atuais:
+
+| | light | dark |
+|---|---|---|
+| background | `#e2e8f0` | `#1e1e2e` |
+| foreground | `#101010` | `#e2e8f0` |
+| cursor | `#000000` | `#e2e8f0` |
+| selection | `#b3d7ff` | `#3a4a6e` |
+
 ---
 
 ## Scripts utilitários (futuros)
