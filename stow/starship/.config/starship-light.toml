@@ -6,11 +6,12 @@
 # Trocar entre light/dark: comando `theme light` ou `theme dark` no shell.
 
 # Layout duas linhas:
-#   linha 1: ╭─ + folder + path + git + node + aws                              hora
-#   linha 2: ╰─ + ❯
-# right_format renderiza alinhado à direita do terminal (recalcula em resize).
+#   linha 1 (diretorio): folder + path + git + node ... fill ... aws (extrema direita)
+#   linha 2 (input): prompt + hora na direita
+# $fill empurra o $aws pra borda direita da LINHA 1 (do diretório). O right_format
+# (hora) cai na LINHA DE INPUT — é o RPROMPT do zsh. Ambos recalculam no resize.
 format = """
-[╭─](#626262) $directory$git_branch$git_status$nodejs$aws
+[╭─](#626262) $directory$git_branch$git_status$nodejs$fill$aws
 [╰─](#626262)$character"""
 right_format = "$time"
 
@@ -72,6 +73,10 @@ detect_folders = ["node_modules"]
 format = "([󰸏 $profile](#875f00) )"
 symbol = ""
 force_display = true
+
+# Empurra o $aws pra borda direita da linha 1 (preenche com espaço).
+[fill]
+symbol = " "
 
 [time]
 disabled    = false

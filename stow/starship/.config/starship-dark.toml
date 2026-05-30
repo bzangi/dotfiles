@@ -3,7 +3,7 @@
 # Espelho do starship-light.toml — só as cores mudam.
 
 format = """
-[╭─](#7c7c7c) $directory$git_branch$git_status$nodejs$aws
+[╭─](#7c7c7c) $directory$git_branch$git_status$nodejs$fill$aws
 [╰─](#7c7c7c)$character"""
 right_format = "$time"
 
@@ -53,6 +53,10 @@ detect_folders = ["node_modules"]
 format = "([󰸏 $profile](#ffaf5f) )"
 symbol = ""
 force_display = true
+
+# Empurra o $aws pra borda direita da linha 1 (preenche com espaço).
+[fill]
+symbol = " "
 
 [time]
 disabled    = false
