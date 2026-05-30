@@ -11,8 +11,8 @@
     "slack@claude-plugins-official": true
   },
   "effortLevel": "xhigh",
-  "theme": "light",
+  "skipWorkflowUsageWarning": true,
+  "theme": "auto",
   "agentPushNotifEnabled": true,
-  "skipAutoPermissionPrompt": true,
-  "skipWorkflowUsageWarning": true
+  "skipAutoPermissionPrompt": true
 }
