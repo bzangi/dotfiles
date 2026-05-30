@@ -203,17 +203,24 @@ viva sem tocar no arquivo. Como `theme()` roda no startup do shell (auto-detect
 do modo macOS), toda aba nova auto-aplica a cor no 1º prompt — persistência
 de graça, sem plist.
 
-**⚠ Duplicação a manter em sync:** as cores **light** existem em DOIS lugares:
-1. `iterm2/com.googlecode.iterm2.plist` → profile "Default" Background Color
-   (= default de boot, antes do 1º prompt). Hoje `#e2e8f0`
-   (RGB 0.886275/0.909804/0.941176) — mesmo bg do tema VS Code "Gojo Limitless Light".
-2. `_bz_iterm_light` no `.zshrc` → o que o `theme light` força na sessão.
+**⚠ Duplicação a manter em sync:** o profile do iTerm tem **"Use Separate Colors
+for Light and Dark Mode" = 1**. Então o bg que **renderiza** vem de um de dois
+slots no plist, escolhido pelo modo do macOS:
+- `Background Color (Light)` = `#e2e8f0` — modo claro (mesmo bg do tema VS Code
+  "Gojo Limitless Light").
+- `Background Color (Dark)` = `≈#15191f` — modo escuro.
 
-Se mudar o bg light num lugar, **mudar no outro também**, senão a janela
-"pisca" de uma cor pra outra entre o boot e o primeiro prompt. As cores
-**dark** só existem em `_bz_iterm_dark` (o profile do plist é light-only).
+A key legada `Background Color` (sem sufixo) é **ignorada na renderização** sob
+separate-colors. O iTerm a mantém em `#fafafa` (sobra da 1ª captura) e a
+**reescreve no quit**, então o valor versionado dela é `#fafafa` por design —
+**não edite essa key à mão** achando que é o bg claro: foi exatamente isso que
+gerou o diff fantasma `#e2e8f0 ↔ #fafafa`. O bg claro real é o slot `(Light)`.
 
-Valores atuais:
+A duplicação que importa é **OSC `_bz_iterm_*` (`.zshrc`) ↔ slots do plist**:
+mudou o bg num lugar, muda no outro, senão a janela "pisca" entre o boot (plist)
+e o 1º prompt (OSC).
+
+Valores que o `theme` força via OSC (`_bz_iterm_light/dark`):
 
 | | light | dark |
 |---|---|---|
@@ -221,6 +228,10 @@ Valores atuais:
 | foreground | `#101010` | `#e2e8f0` |
 | cursor | `#000000` | `#e2e8f0` |
 | selection | `#b3d7ff` | `#3a4a6e` |
+
+⚠ O bg **dark** diverge entre as duas fontes: slot `(Dark)` do plist = `≈#15191f`
+vs OSC `_bz_iterm_dark` = `#1e1e2e`. Só impacta modo escuro (leve "pisca" no
+boot) — alinhar quando mexer no tema dark.
 
 ---
 
