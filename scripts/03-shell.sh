@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Instala oh-my-zsh + plugins. Idempotente.
+# Instala oh-my-zsh + plugins + Claude Code. Idempotente.
 set -euo pipefail
 
 # Dependências (standalone-safe): o installer do oh-my-zsh usa curl, plugins usam git.
@@ -34,3 +34,15 @@ clone_plugin() {
 clone_plugin zsh-completions          https://github.com/zsh-users/zsh-completions
 clone_plugin zsh-autosuggestions      https://github.com/zsh-users/zsh-autosuggestions
 clone_plugin zsh-syntax-highlighting  https://github.com/zsh-users/zsh-syntax-highlighting
+
+# --- Claude Code (instalador nativo oficial, canal latest) ---
+# Vai pra ~/.local/bin/claude + ~/.local/share/claude; auto-update em background.
+# Idempotente: pula se já instalado. command -v pode não ver (~/.local/bin entra
+# no PATH só via .zshrc, stowado no 04), então checa o caminho nativo direto também.
+if command -v claude &>/dev/null || [[ -x "$HOME/.local/bin/claude" ]]; then
+  echo "✓ Claude Code já instalado"
+else
+  echo "→ Instalando Claude Code (instalador nativo oficial)..."
+  curl -fsSL https://claude.ai/install.sh | bash
+  echo "✓ Claude Code em ~/.local/bin/claude"
+fi
