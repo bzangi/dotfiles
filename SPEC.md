@@ -35,7 +35,7 @@ Versionar configs pessoais (terminal + macOS) de forma que:
 | `macOS defaults` (key repeat, press-and-hold, etc) | ✓ | `macos/defaults.sh` |
 | Oh My Zsh + plugins (autosuggestions, etc) | ✗ versão | instalado pelo `03-shell.sh` |
 | Nerd Font (JetBrainsMono) | ✗ binário | `brew install --cask` no `02-brew.sh` |
-| iTerm2 prefs | ✓ | `iterm2/com.googlecode.iterm2.plist` + "custom prefs folder" (load-only), apontado por `07-iterm2.sh` |
+| iTerm2 prefs | ✓ | `iterm2/com.googlecode.iterm2.plist` + "custom prefs folder" (lê no launch + salva no quit), configurado por `07-iterm2.sh` |
 
 ## Tooling
 
@@ -347,10 +347,11 @@ ordem dos sub-scripts é correta. Iterar até `vagrant up && bash install.sh`
   sem hook que faz `git pull` no boot. Cada update é uma ação consciente.
 - **VS Code extensions** sincronizam via Settings Sync (GitHub login),
   não versionamos a lista no repo.
-- **iTerm2 prefs** versionadas via "Load preferences from a custom folder"
-  (load-only), **não** symlink do plist — o `cfprefsd` reescreve/ignora symlinks
-  em `~/Library/Preferences`. Captura manual do plist (convertido pra XML); deploy
-  idempotente por `07-iterm2.sh` (aponta o iTerm pra `iterm2/` via `defaults write`).
+- **iTerm2 prefs** versionadas via "Load preferences from a custom folder", **não**
+  symlink do plist (o `cfprefsd` reescreve/ignora symlinks em `~/Library/Preferences`).
+  Modo **sync**: lê da pasta no launch e salva de volta no quit automaticamente
+  (`07-iterm2.sh` seta `LoadPrefsFromCustomFolder` + save-on-quit "Always"). O iTerm
+  grava só keys syncable (filtra `NoSync/NS/SU/UK`) em XML → diffs limpos e legíveis.
 
 ## Open questions / decisões adiadas
 

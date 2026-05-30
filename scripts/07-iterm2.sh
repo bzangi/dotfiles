@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
-# Aponta o iTerm2 pra carregar preferências da pasta do repo (load-only).
-# NÃO versiona via symlink do plist (cfprefsd reescreve/ignora silenciosamente) —
-# usa o mecanismo nativo "Load preferences from a custom folder". Idempotente.
+# Sincroniza o iTerm2 com a pasta do repo via mecanismo nativo "custom prefs folder":
+# lê no launch + salva automaticamente no quit. NÃO usa symlink do plist (o cfprefsd
+# reescreve/ignora symlinks em ~/Library/Preferences). Idempotente.
 set -euo pipefail
 
 REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
@@ -19,11 +19,20 @@ if [[ ! -d "/Applications/iTerm.app" ]]; then
   exit 0
 fi
 
-# Load-only: o iTerm LÊ as prefs da pasta do repo no launch; NÃO habilitamos
-# save-on-quit, então o repo é a fonte da verdade e updates são conscientes
-# (edita no iTerm → re-captura o plist pro repo → commit).
+# Sync bidirecional:
+#  - LoadPrefsFromCustomFolder: o iTerm LÊ as prefs da pasta no launch.
+#  - Save automático no quit (sem prompt): grava as prefs de volta na pasta ao sair.
+#    O iTerm filtra keys voláteis (prefixos NoSync/NS/SU/UK), então o arquivo só muda
+#    quando você altera uma config real → diffs limpos. Grava em XML (legível).
+#    Confirmado no source iTermRemotePreferences.m: shouldSaveAutomatically (l.313-317)
+#    exige Selection==Always(2) + HaveSelection; o filtro syncable está em l.105-108.
 defaults write "$DOMAIN" PrefsCustomFolder -string "$ITERM_DIR"
 defaults write "$DOMAIN" LoadPrefsFromCustomFolder -bool true
 
-echo "✓ iTerm2 apontado pra $ITERM_DIR (load-only)."
+# Save-on-quit "Always", sem perguntar: HaveSelection=true + Selection=2 (Always).
+# Estas keys são NoSync* (locais por máquina), então o script as seta em cada máquina.
+defaults write "$DOMAIN" NoSyncNeverRemindPrefsChangesLostForFile -bool true
+defaults write "$DOMAIN" NoSyncNeverRemindPrefsChangesLostForFile_selection -int 2
+
+echo "✓ iTerm2 sincronizado com $ITERM_DIR (lê no launch + salva no quit, automático)."
 echo "ℹ Toma efeito no próximo launch. Se o iTerm estiver aberto, saia (Cmd-Q) e reabra."

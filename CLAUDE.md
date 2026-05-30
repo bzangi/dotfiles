@@ -115,24 +115,27 @@ git pull
 
 ### Atualizar config do iTerm2
 
-iTerm2 usa "Load preferences from a custom folder" (load-only) apontando pra
-`iterm2/`. Como é load-only, o iTerm **não** reescreve a pasta sozinho — pra
-versionar uma mudança você re-captura:
+iTerm2 usa "Load preferences from a custom folder" apontando pra `iterm2/`, com
+**save automático no quit** (configurado pelo `07-iterm2.sh`). Não precisa
+re-capturar à mão — ao fechar o iTerm ele grava as prefs na pasta sozinho.
 
 ```bash
-# 1. Mudou settings no iTerm2 (GUI). Re-captura o plist efetivo pro repo:
-cp ~/Library/Preferences/com.googlecode.iterm2.plist iterm2/com.googlecode.iterm2.plist
-plutil -convert xml1 iterm2/com.googlecode.iterm2.plist   # diffs legíveis
-
-# 2. Commit
+# 1. Mudou settings no iTerm2 (GUI). Ao FECHAR o iTerm (Cmd-Q), ele grava as prefs
+#    na pasta do repo automaticamente — em XML, só as keys reais (filtra voláteis).
+# 2. Confirma e commita o diff:
+cd ~/Desktop/personal/dotfiles
+git status              # iterm2/com.googlecode.iterm2.plist aparece se algo mudou
+git diff iterm2/
 git add iterm2/com.googlecode.iterm2.plist
 git commit -m "iterm2: <o que mudou>"
 ```
 
-**Gotcha (load-only):** o iTerm lê da pasta no launch mas salva mudanças da sessão
-em `~/Library/Preferences`. Re-capture **antes** de reabrir o iTerm — senão o
-próximo launch recarrega a versão antiga da pasta e suas mudanças somem. Apontar
-máquina nova pra essa pasta: `bash scripts/07-iterm2.sh` (e reabrir o iTerm).
+**Nota:** o `git status` só suja quando você muda uma config de verdade — keys
+voláteis (posição de janela, timestamps, bookmark blobs) têm prefixo `NoSync` e
+o iTerm **não** as grava na pasta (`iTermRemotePreferences.m` l.105-108). O
+primeiro quit numa máquina nova reescreve o plist pra essa versão filtrada (some
+o lixo machine-specific da captura inicial). Apontar máquina nova: `bash
+scripts/07-iterm2.sh` (e reabrir o iTerm).
 
 ---
 

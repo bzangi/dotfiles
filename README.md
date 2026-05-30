@@ -30,7 +30,7 @@ Depois:
 | `Brewfile` | `brew bundle install` lê daqui |
 | `stow/` | arquivos que viram symlinks no `$HOME` via GNU stow |
 | `vscode/` | settings.json + keybindings.json (path em `~/Library/`) |
-| `iterm2/` | prefs do iTerm2 (custom prefs folder, load-only) |
+| `iterm2/` | prefs do iTerm2 (custom prefs folder, lê no launch + salva no quit) |
 | `macos/defaults.sh` | todos os `defaults write` |
 | `scripts/` | sub-scripts (01-prereqs → 07-iterm2) |
 
