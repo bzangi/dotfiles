@@ -18,6 +18,11 @@ right_format = "$time"
 # Mantém linha em branco antes de cada prompt (respiração visual)
 add_newline = true
 
+# Folga pro spawn de comandos de módulo (ex: `node --version` do [nodejs]).
+# Default é 500ms; o flip de appearance do macOS (comando `theme`) gera um pico
+# de CPU/IO que pode atrasar o 1º spawn e disparar WARN "command timed out".
+command_timeout = 1000
+
 [character]
 format = "$symbol "
 success_symbol = "[❯](#5f5f87)"
