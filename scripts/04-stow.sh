@@ -10,7 +10,7 @@ fi
 
 REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 STOW_DIR="$REPO_ROOT/stow"
-PACKAGES=(zsh git starship claude)
+PACKAGES=(zsh git starship claude ghostty)
 BACKUP_DIR="$HOME/.dotfiles-backup/$(date +%Y%m%d-%H%M%S)"
 
 # Detecta conflitos: arquivos regulares (não-symlinks) onde stow vai criar link
