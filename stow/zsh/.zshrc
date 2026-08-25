@@ -78,6 +78,7 @@ plugins=(
     zsh-completions
     zsh-autosuggestions
     zsh-syntax-highlighting
+    aws
     )
 
 source $ZSH/oh-my-zsh.sh
