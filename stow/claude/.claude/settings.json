@@ -1,18 +1,79 @@
 {
+  "permissions": {
+    "defaultMode": "auto"
+  },
   "model": "opus[1m]",
   "statusLine": {
     "type": "command",
     "command": "zsh $HOME/.claude/statusline-command.sh"
   },
   "enabledPlugins": {
-    "github@claude-plugins-official": true,
+    "github@claude-plugins-official": false,
     "frontend-design@claude-plugins-official": true,
     "superpowers@claude-plugins-official": true,
-    "slack@claude-plugins-official": true
+    "slack@claude-plugins-official": false,
+    "ponytail@ponytail": true,
+    "typescript-lsp@claude-plugins-official": true
   },
-  "effortLevel": "xhigh",
+  "extraKnownMarketplaces": {
+    "ponytail": {
+      "source": {
+        "source": "github",
+        "repo": "DietrichGebert/ponytail"
+      }
+    }
+  },
+  "effortLevel": "low",
+  "modelSettings": {
+    "claude-fable-5": {
+      "effortLevel": "xhigh"
+    },
+    "claude-sonnet-5": {
+      "effortLevel": "low"
+    },
+    "claude-opus-5": {
+      "effortLevel": "high"
+    }
+  },
+  "tui": "fullscreen",
   "skipWorkflowUsageWarning": true,
   "theme": "auto",
+  "editorMode": "normal",
+  "autoCompactEnabled": false,
+  "remoteControlAtStartup": false,
   "agentPushNotifEnabled": true,
-  "skipAutoPermissionPrompt": true
+  "skipAutoPermissionPrompt": true,
+  "autoMode": {
+    "soft_deny": [
+      "$defaults",
+      "Bash(aws:*) writes to prod-tagged EKS/Cognito resources in this repo's AWS account",
+      "Terraform apply under docs/superpowers/plans/2026-07-31-bms-cognito-prod-migration.md or cognito-groups-single-source-terraform scope"
+    ],
+    "environment": [
+      "### Org-wide",
+      "**Organization**: BullCredTech (GitHub org; repo `BullCredTech/bull-web-platform`)",
+      "**Cloud provider(s)**: AWS (Cognito, AppConfig, EKS + Helm, ECR, SNS/Lambda, Secrets Manager)",
+      "**Repository visibility**: private (confirmed via gh — BullCredTech/bull-web-platform)",
+      "**Internal sharing / snippet hosting**: None configured — treat public paste/gist services as outside the trust boundary",
+      "**Secrets management**: AWS Secrets Manager (e.g. `turbo-cache/turbo-token`) and GitHub Secrets (CI secret names referenced: GEMINI_API_KEY, SLACK_BOT_TOKEN, SLACK_PR_CHANNEL_ID, SLACK_WEBHOOK_URL, TURBO_API, TURBO_TEAM, TURBO_TOKEN)",
+      "**Default / protected branches**: `main` (default), `staging` — protected via active rulesets `Protect main branch`, `Protect staging branch`, `weekend-holiday-merge-gate-required`",
+      "**CI/CD deploy targets**: GitHub Actions workflows to EKS Production and EKS Staging (`eks-production-deploy.yml` on main, `eks-staging-deploy.yml` on staging); ECR for images",
+      "**Network posture**: None configured",
+      "**Source control**: github.com/BullCredTech/bull-web-platform and its remote(s) only",
+      "**Trusted internal domains**: None configured",
+      "**Trusted cloud buckets**: None configured",
+      "**Key internal services**: `51rancnlz3.execute-api.sa-east-1.amazonaws.com` (AWS API Gateway, sa-east-1, contacted 7× in project transcripts); Turbo Remote Cache self-hosted server (ducktors/turborepo-remote-cache on ECS)",
+      "**Internal package registry**: None configured",
+      "**Sensitive data locations & audiences**: `apps/bms/.env`, `apps/bms/.env.example`, `apps/bms/.env.staging`, `apps/bull-negocia/.env.example`, `apps/cliente-autoservico/.env.example`, `infra/turbo-cache/.env` / `infra/turbo-cache/.env.example`; Cognito auth tokens/claims (handled only via `@repo/auth`); docs under `docs/superpowers/plans/2026-07-31-bms-cognito-prod-migration.md`, `docs/superpowers/plans/2026-07-31-cognito-groups-single-source-terraform.md`, `docs/superpowers/specs/2026-07-31-cognito-groups-single-source-terraform-design.md` — share only with audiences cleared at the [named+specifics] bar",
+      "**Data retention / declassification**: None configured",
+      "**Sensitive remote targets**: any namespace/host/container with `prod`/`production` as a whole word or segment — includes EKS Production deploy target and `apps/bms/.env.staging`-adjacent prod Cognito migration docs",
+      "**Protected deployment namespaces / environments**: EKS Production (`eks-production-deploy.yml`), and Cognito prod migration scope per `docs/superpowers/plans/2026-07-31-bms-cognito-prod-migration.md`",
+      "**Protected IaC scopes**: Terraform-managed Cognito groups/permissions (`bms.<domínio>.<feature>.<ação>` convention) per `docs/superpowers/plans/2026-07-31-cognito-groups-single-source-terraform.md` and `docs/superpowers/specs/2026-07-31-cognito-groups-single-source-terraform-design.md`; IAM, RBAC, networking, quota, node-pool resources; anything tagged `prod`/`production`",
+      "### User-specific",
+      "**Primary use of Claude Code**: software development (Next.js/TypeScript monorepo — Bull Web Platform)",
+      "**Trusted repo**: /Users/brunoz/Desktop/bull/bull-web-platform (github.com:BullCredTech/bull-web-platform.git) — private, confirmed via gh",
+      "**Org-specific CLIs**: None configured",
+      "routine under apps/bms/, apps/bull-negocia/, apps/cliente-autoservico/, apps/b2b-dashboard/, packages/*, docs/superpowers/ prefixes within this repo"
+    ]
+  }
 }
