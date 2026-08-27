@@ -225,43 +225,55 @@ theme() {
 # o LS_COLORS calibrado (BSD ls ignora LS_COLORS, usa só o LSCOLORS limitado a 8 cores).
 alias ls='gls --color=auto --group-directories-first'
 
-# Cores do `git log --decorate` (HEAD, branches, remotes, tags, stash).
+# Cores do `git log --decorate` (HEAD, branches, remotes, tags, stash) e do diff.
 # Escreve em ~/.gitconfig.theme (include gitignored no $HOME, NÃO o ~/.gitconfig
 # do stow) pra o flip light<->dark não sujar o .gitconfig versionado. O
 # ~/.gitconfig puxa esse arquivo via [include]; git ignora include ausente.
 # Códigos = 256-color (compatível com git antigo).
+# Gera o arquivo inteiro e troca com `mv` (atômico): N shells abrindo juntos
+# (restore de sessão do Ghostty) não disputam o .lock do `git config`, que
+# estourava "could not lock config file ... File exists".
+_bz_git_colors_write() {
+  local tmp="$HOME/.gitconfig.theme.$$"
+  cat > "$tmp" && mv -f "$tmp" "$HOME/.gitconfig.theme"
+}
+
 _bz_git_colors_light() {
-  # decorate (HEAD, branches, refs em git log)
-  git config --file "$HOME/.gitconfig.theme" color.decorate.HEAD         "bold 124"   # vermelho terra
-  git config --file "$HOME/.gitconfig.theme" color.decorate.branch       "bold 28"    # verde escuro
-  git config --file "$HOME/.gitconfig.theme" color.decorate.remoteBranch "bold 94"    # mostarda escura
-  git config --file "$HOME/.gitconfig.theme" color.decorate.tag          "bold 60"    # cinza-azulado
-  git config --file "$HOME/.gitconfig.theme" color.decorate.stash        "bold 124"
-  # diff (file/hunk metadata, linhas removidas/adicionadas)
-  git config --file "$HOME/.gitconfig.theme" color.diff.commit     "bold 94"          # hash commit em patches
-  git config --file "$HOME/.gitconfig.theme" color.diff.meta       "60"               # header arquivo
-  git config --file "$HOME/.gitconfig.theme" color.diff.frag       "bold 94"          # header @@ hunk (era cyan)
-  git config --file "$HOME/.gitconfig.theme" color.diff.func       "60"               # nome função no hunk
-  git config --file "$HOME/.gitconfig.theme" color.diff.old        "124"              # linhas removidas
-  git config --file "$HOME/.gitconfig.theme" color.diff.new        "28"               # linhas adicionadas
-  git config --file "$HOME/.gitconfig.theme" color.diff.whitespace "reverse 124"      # whitespace errors
+  _bz_git_colors_write <<'EOF'
+[color "decorate"]
+	HEAD = bold 124
+	branch = bold 28
+	remoteBranch = bold 94
+	tag = bold 60
+	stash = bold 124
+[color "diff"]
+	commit = bold 94
+	meta = 60
+	frag = bold 94
+	func = 60
+	old = 124
+	new = 28
+	whitespace = reverse 124
+EOF
 }
 
 _bz_git_colors_dark() {
-  # decorate
-  git config --file "$HOME/.gitconfig.theme" color.decorate.HEAD         "bold 210"   # coral
-  git config --file "$HOME/.gitconfig.theme" color.decorate.branch       "bold 114"   # verde claro
-  git config --file "$HOME/.gitconfig.theme" color.decorate.remoteBranch "bold 215"   # mostarda clara
-  git config --file "$HOME/.gitconfig.theme" color.decorate.tag          "bold 146"   # lavanda
-  git config --file "$HOME/.gitconfig.theme" color.decorate.stash        "bold 210"
-  # diff
-  git config --file "$HOME/.gitconfig.theme" color.diff.commit     "bold 215"
-  git config --file "$HOME/.gitconfig.theme" color.diff.meta       "103"
-  git config --file "$HOME/.gitconfig.theme" color.diff.frag       "bold 215"
-  git config --file "$HOME/.gitconfig.theme" color.diff.func       "103"
-  git config --file "$HOME/.gitconfig.theme" color.diff.old        "210"
-  git config --file "$HOME/.gitconfig.theme" color.diff.new        "114"
-  git config --file "$HOME/.gitconfig.theme" color.diff.whitespace "reverse 210"
+  _bz_git_colors_write <<'EOF'
+[color "decorate"]
+	HEAD = bold 210
+	branch = bold 114
+	remoteBranch = bold 215
+	tag = bold 146
+	stash = bold 210
+[color "diff"]
+	commit = bold 215
+	meta = 103
+	frag = bold 215
+	func = 103
+	old = 210
+	new = 114
+	whitespace = reverse 210
+EOF
 }
 # Auto-detect no boot do shell baseado no modo do macOS
 if defaults read -g AppleInterfaceStyle 2>/dev/null | grep -qi dark; then

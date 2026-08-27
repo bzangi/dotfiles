@@ -7,3 +7,6 @@ keybind = alt+backspace=text:\x1b\x7f
 
 # Merge titlebar + tab bar into one row (native tabs need a titlebar; hidden/non-native fullscreen would break them)
 macos-titlebar-style = tabs
+
+# Restore windows/tabs/splits + cwd on relaunch (needs a clean quit via cmd+q; running processes are not restored)
+window-save-state = always
