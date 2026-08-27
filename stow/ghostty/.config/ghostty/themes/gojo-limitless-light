@@ -1,0 +1,27 @@
+# Gojo Limitless Light — port of the VS Code theme (shams.anime-theme-collection).
+# Base: Tailwind slate; accent: indigo/violet (600-level shades for contrast on light bg).
+background = #e2e8f0
+foreground = #1e293b
+cursor-color = #4f46e5
+cursor-text = #e2e8f0
+selection-background = #a7a7ec
+selection-foreground = #1e293b
+
+# normal
+palette = 0=#1e293b
+palette = 1=#dc2626
+palette = 2=#059669
+palette = 3=#d97706
+palette = 4=#4f46e5
+palette = 5=#7c3aed
+palette = 6=#0284c7
+palette = 7=#64748b
+# bright
+palette = 8=#475569
+palette = 9=#ef4444
+palette = 10=#10b981
+palette = 11=#f59e0b
+palette = 12=#6366f1
+palette = 13=#8b5cf6
+palette = 14=#0ea5e9
+palette = 15=#f8fafc

@@ -1,1 +1,6 @@
 macos-option-as-alt = true
+# Follows macOS appearance (driven by the zsh `theme` function).
+theme = light:gojo-limitless-light,dark:gojo-limitless-dark
+
+# option+backspace → ESC DEL (backward-kill-word in zsh/readline/Claude Code)
+keybind = alt+backspace=text:\x1b\x7f

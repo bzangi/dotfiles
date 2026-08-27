@@ -178,9 +178,8 @@ _bz_lscolors_dark() {
 }
 
 # Dirige o appearance do macOS (System Events) — fonte ÚNICA do tema do terminal.
-# O profile do iTerm tem "Use Separate Colors for Light and Dark Mode" = ON, então
-# bg/fg/cursor/seleção/BOLD/ANSI vêm dos slots (Light)/(Dark) escolhidos pelo modo
-# do macOS. Mexer só via OSC deixava o BOLD preso no slot errado (não há OSC p/ bold).
+# O Ghostty tem `theme = light:gojo-limitless-light,dark:gojo-limitless-dark`
+# (stow/ghostty), então bg/fg/cursor/seleção/ANSI seguem o modo do macOS sozinhos.
 # Idempotente: só dispara osascript se o modo difere — assim o auto-detect do startup
 # (que LÊ o modo e chama theme) não re-dispara à toa nem entra em loop.
 # Sem guard de TERM_PROGRAM: é system-wide, vale em qualquer terminal no macOS.
