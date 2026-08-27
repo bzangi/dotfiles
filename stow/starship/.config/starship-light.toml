@@ -1,6 +1,6 @@
 # ~/.config/starship-light.toml
 # Prompt de duas linhas otimizado pra fundo CLARO.
-# Cores em hex (truecolor — iTerm2 suporta nativamente).
+# Cores em hex (truecolor — Ghostty suporta nativamente; paleta Gojo Limitless).
 # Requer Nerd Font para os ícones renderizarem.
 #
 # Trocar entre light/dark: comando `theme light` ou `theme dark` no shell.
@@ -11,8 +11,8 @@
 # $fill empurra o $aws pra borda direita da LINHA 1 (do diretório). O right_format
 # (hora) cai na LINHA DE INPUT — é o RPROMPT do zsh. Ambos recalculam no resize.
 format = """
-[╭─](#626262) $directory$git_branch$git_status$nodejs$fill$aws
-[╰─](#626262)$character"""
+[╭─](#94a3b8) $directory$git_branch$git_status$nodejs$fill$aws
+[╰─](#94a3b8)$character"""
 right_format = "$time"
 
 # Mantém linha em branco antes de cada prompt (respiração visual)
@@ -25,13 +25,13 @@ command_timeout = 1000
 
 [character]
 format = "$symbol "
-success_symbol = "[❯](#5f5f87)"
-error_symbol   = "[❯](#af0000)"
+success_symbol = "[❯](#7c3aed)"
+error_symbol   = "[❯](#dc2626)"
 
 [directory]
 # Fora de repo git: path truncado aos 3 últimos componentes
-format = "[ ](#005f87)[$path]($style) "
-style  = "fg=#005f87"
+format = "[ ](#4f46e5)[$path]($style) "
+style  = "fg=#4f46e5"
 truncation_length = 3
 truncation_symbol = "…/"
 
@@ -40,31 +40,31 @@ truncation_symbol = "…/"
 truncate_to_repo = true
 # Nota: dentro de repo_root_format o $style do módulo não resolve, então
 # hardcoda o hex no $path. O repo_root usa $repo_root_style (bold + cor).
-repo_root_format = "[ ](#005f87)[$repo_root]($repo_root_style)[$path](#005f87) "
-repo_root_style  = "bold #005f87"
+repo_root_format = "[ ](#4f46e5)[$repo_root]($repo_root_style)[$path](#4f46e5) "
+repo_root_style  = "bold #4f46e5"
 
 [git_branch]
-format = "[ $branch](#5f8700)"
+format = "[ $branch](#059669)"
 symbol = ""
 
 # Indicador de "sujo" — qualquer mudança vira ✗ vermelho terra
 [git_status]
 format = "[ $all_status$ahead_behind]($style) "
-style  = "fg=#af0000"
+style  = "fg=#dc2626"
 modified   = "✗"
 untracked  = "*"
 staged     = "+"
 conflicted = "="
-ahead      = "[⇡${count}](bold #af005f)"
-behind     = "[⇣${count}](bold #af005f)"
-diverged   = "[⇕](bold #af005f)"
+ahead      = "[⇡${count}](bold #db2777)"
+behind     = "[⇣${count}](bold #db2777)"
+diverged   = "[⇕](bold #db2777)"
 stashed    = ""
 deleted    = "✘"
 renamed    = "»"
 
 # Só aparece quando o cwd (ou ancestral) tem package.json/.nvmrc/node_modules
 [nodejs]
-format = "[ $version](#5f8700) "
+format = "[ $version](#059669) "
 symbol = ""
 detect_extensions = []  # sobrescreve default ["js","ts",...] — só triggers explícitos abaixo
 detect_files   = ["package.json", ".nvmrc", ".node-version"]
@@ -75,7 +75,7 @@ detect_folders = ["node_modules"]
 # force_display=true faz o módulo sempre processar (default só ativa se
 # AWS_ACCESS_KEY_ID setado, o que não é o padrão usando SSO/aws-vault).
 [aws]
-format = "([󰸏 $profile](#875f00) )"
+format = "([󰸏 $profile](#d97706) )"
 symbol = ""
 force_display = true
 
@@ -86,5 +86,5 @@ symbol = " "
 [time]
 disabled    = false
 format      = "[$time]($style)"
-style       = "fg=#878787"
+style       = "fg=#64748b"
 time_format = "%H:%M"

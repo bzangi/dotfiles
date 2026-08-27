@@ -3,8 +3,8 @@
 # Espelho do starship-light.toml — só as cores mudam.
 
 format = """
-[╭─](#7c7c7c) $directory$git_branch$git_status$nodejs$fill$aws
-[╰─](#7c7c7c)$character"""
+[╭─](#475569) $directory$git_branch$git_status$nodejs$fill$aws
+[╰─](#475569)$character"""
 right_format = "$time"
 
 add_newline = true
@@ -16,46 +16,46 @@ command_timeout = 1000
 
 [character]
 format = "$symbol "
-success_symbol = "[❯](#afafd7)"
-error_symbol   = "[❯](#ff8787)"
+success_symbol = "[❯](#a78bfa)"
+error_symbol   = "[❯](#f87171)"
 
 [directory]
-format = "[ ](#5fafd7)[$path]($style) "
-style  = "fg=#5fafd7"
+format = "[ ](#818cf8)[$path]($style) "
+style  = "fg=#818cf8"
 truncation_length = 3
 truncation_symbol = "…/"
 
 truncate_to_repo = true
-repo_root_format = "[ ](#5fafd7)[$repo_root]($repo_root_style)[$path](#5fafd7) "
-repo_root_style  = "bold #5fafd7"
+repo_root_format = "[ ](#818cf8)[$repo_root]($repo_root_style)[$path](#818cf8) "
+repo_root_style  = "bold #818cf8"
 
 [git_branch]
-format = "[ $branch](#afd75f)"
+format = "[ $branch](#34d399)"
 symbol = ""
 
 [git_status]
 format = "[ $all_status$ahead_behind]($style) "
-style  = "fg=#ff8787"
+style  = "fg=#f87171"
 modified   = "✗"
 untracked  = "*"
 staged     = "+"
 conflicted = "="
-ahead      = "[⇡${count}](bold #ff87d7)"
-behind     = "[⇣${count}](bold #ff87d7)"
-diverged   = "[⇕](bold #ff87d7)"
+ahead      = "[⇡${count}](bold #f472b6)"
+behind     = "[⇣${count}](bold #f472b6)"
+diverged   = "[⇕](bold #f472b6)"
 stashed    = ""
 deleted    = "✘"
 renamed    = "»"
 
 [nodejs]
-format = "[ $version](#afd75f) "
+format = "[ $version](#34d399) "
 symbol = ""
 detect_extensions = []  # sobrescreve default ["js","ts",...] — só triggers explícitos abaixo
 detect_files   = ["package.json", ".nvmrc", ".node-version"]
 detect_folders = ["node_modules"]
 
 [aws]
-format = "([󰸏 $profile](#ffaf5f) )"
+format = "([󰸏 $profile](#fbbf24) )"
 symbol = ""
 force_display = true
 
@@ -66,5 +66,5 @@ symbol = " "
 [time]
 disabled    = false
 format      = "[$time]($style)"
-style       = "fg=#bcbcbc"
+style       = "fg=#64748b"
 time_format = "%H:%M"
