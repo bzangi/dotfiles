@@ -2,7 +2,7 @@
   "permissions": {
     "defaultMode": "auto"
   },
-  "model": "opus[1m]",
+  "model": "claude-fable-5[1m]",
   "statusLine": {
     "type": "command",
     "command": "zsh $HOME/.claude/statusline-command.sh"
@@ -32,7 +32,7 @@
       "effortLevel": "low"
     },
     "claude-opus-5": {
-      "effortLevel": "high"
+      "effortLevel": "xhigh"
     }
   },
   "tui": "fullscreen",
@@ -75,5 +75,9 @@
       "**Org-specific CLIs**: None configured",
       "routine under apps/bms/, apps/bull-negocia/, apps/cliente-autoservico/, apps/b2b-dashboard/, packages/*, docs/superpowers/ prefixes within this repo"
     ]
-  }
+  },
+  "showTurnDuration": true,
+  "showMessageTimestamps": true,
+  "preferredNotifChannel": "ghostty",
+  "inputNeededNotifEnabled": true
 }
