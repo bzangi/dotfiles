@@ -4,3 +4,6 @@ theme = light:gojo-limitless-light,dark:gojo-limitless-dark
 
 # option+backspace → ESC DEL (backward-kill-word in zsh/readline/Claude Code)
 keybind = alt+backspace=text:\x1b\x7f
+
+# Merge titlebar + tab bar into one row (native tabs need a titlebar; hidden/non-native fullscreen would break them)
+macos-titlebar-style = tabs
