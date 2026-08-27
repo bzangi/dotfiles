@@ -26,7 +26,7 @@
   "effortLevel": "low",
   "modelSettings": {
     "claude-fable-5": {
-      "effortLevel": "xhigh"
+      "effortLevel": "medium"
     },
     "claude-sonnet-5": {
       "effortLevel": "low"
@@ -39,8 +39,12 @@
   "skipWorkflowUsageWarning": true,
   "theme": "auto",
   "editorMode": "normal",
+  "preferredNotifChannel": "ghostty",
   "autoCompactEnabled": false,
+  "showTurnDuration": true,
+  "showMessageTimestamps": true,
   "remoteControlAtStartup": false,
+  "inputNeededNotifEnabled": true,
   "agentPushNotifEnabled": true,
   "skipAutoPermissionPrompt": true,
   "autoMode": {
@@ -75,9 +79,5 @@
       "**Org-specific CLIs**: None configured",
       "routine under apps/bms/, apps/bull-negocia/, apps/cliente-autoservico/, apps/b2b-dashboard/, packages/*, docs/superpowers/ prefixes within this repo"
     ]
-  },
-  "showTurnDuration": true,
-  "showMessageTimestamps": true,
-  "preferredNotifChannel": "ghostty",
-  "inputNeededNotifEnabled": true
+  }
 }
