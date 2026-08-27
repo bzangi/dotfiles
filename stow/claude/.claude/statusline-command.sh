@@ -30,7 +30,7 @@ pct() {
   local v; v=$(printf '%.0f' "$1")
   local c=$DIM
   if (( v >= $3 )); then c=$RED; elif (( v >= $2 )); then c=$YEL; fi
-  printf '%s%s%%%s' "$c" "$v" "$RESET"
+  printf '%s%s%s%%%s' "$RESET" "$c" "$v" "$RESET"
 }
 
 line1="${BLUE}${display_path}${RESET}${DIM}${git_info}${RESET}"
