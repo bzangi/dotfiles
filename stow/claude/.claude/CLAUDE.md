@@ -20,6 +20,10 @@
 
 - Antes de rodar um comando, uma linha sobre o que ele faz e a intenção. Transparência, não tutorial.
 
+## Fluxo de trabalho (git)
+
+- Branch `main` sempre limpa, sem trabalho solto nela. Qualquer mudança de código usa worktree + branch dedicada — nunca commitar direto na `main`.
+
 ## Configs globais (symlink / dotfiles stow)
 
 - Meus arquivos globais em `~/.claude/` são symlinks gerenciados por GNU stow. Os alvos reais ficam em `~/Desktop/personal/dotfiles/stow/claude/.claude/`.
