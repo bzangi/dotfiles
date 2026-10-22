@@ -13,5 +13,14 @@ keybind = alt+n=text:~
 # https://github.com/ghostty-org/ghostty/discussions/14303 — retry `tabs` after a stable release fixes it.
 macos-titlebar-style = transparent
 
+# Tab title is owned by the zsh preexec hook (Nerd Font icon per command, see
+# .zshrc); Ghostty's own title hook registers later and would overwrite it.
+shell-integration-features = no-title
+# macOS doesn't fall back to a Nerd Font for PUA glyphs in tab titles.
+window-title-font-family = JetBrainsMono Nerd Font Mono
+
+# 🔔 in the tab title when a command (>5s) finishes in an unfocused tab.
+notify-on-command-finish = unfocused
+
 # Restore windows/tabs/splits + cwd on relaunch (needs a clean quit via cmd+q; running processes are not restored)
 window-save-state = always

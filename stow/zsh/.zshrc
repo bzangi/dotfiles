@@ -291,6 +291,41 @@ else
   theme light
 fi
 
+# Título da tab com ícone Nerd Font do comando rodando (tipo o ícone de job do
+# iTerm). Ghostty não tem ícone por tab, então vai como texto via OSC 2. Exige no
+# Ghostty: `window-title-font-family` = uma Nerd Font (o macOS não faz fallback de
+# PUA na tab) e `shell-integration-features = no-title` (o _ghostty_preexec é
+# registrado depois do .zshrc, no deferred init, e sobrescreveria este título).
+# Glifos como escapes: tooling de agente pode estripar PUA cru (ver CLAUDE.md).
+# Idle: mesmo formato de cwd que a integração do Ghostty usava (OMZ escreve).
+ZSH_THEME_TERM_TITLE_IDLE="%(4~|…/%3~|%~)"
+typeset -gA _bz_tab_icons=(
+  claude $'\uec82'  # cod-claude
+  brew   $'\ue7fd'  # dev-homebrew
+  ruby   $'\ue739'  # dev-ruby
+  node   $'\ue718'  # dev-nodejs_small
+  npm    $'\ue71e'  npx $'\ue71e'  # dev-npm
+  pnpm   $'\ue865'  # dev-pnpm
+  yarn   $'\ue6a7'  # seti-yarn
+  bun    $'\ue76f'  # dev-bun
+  python $'\ue73c'  python3 $'\ue73c'  uv $'\ue73c'  # dev-python
+  git    $'\ue702'  # dev-git
+  docker $'\ue7b0'  # dev-docker
+  ssh    $'\uf023'  # fa-lock
+  vim    $'\ue7c5'  nvim $'\ue7c5'  # dev-vim
+  make   $'\uf013'  # fa-gear
+  cargo  $'\ue7a8'  # dev-rust
+)
+_bz_tab_title_preexec() {
+  # $2 = linha com aliases expandidos (gst → git), $1 = o que foi digitado.
+  # ponytail: só a 1ª palavra; `sudo x` / `FOO=1 x` caem no ícone padrão
+  # (A): com uma palavra só, (z) vira escalar e [1] pegaria o 1º caractere
+  local cmd=${${(Az)2}[1]:t} icon=$'\uf120'  # fa-terminal
+  (( ${+_bz_tab_icons[$cmd]} )) && icon=$_bz_tab_icons[$cmd]
+  printf '\e]2;%s %s\a' "$icon" "${1//[[:cntrl:]]}"
+}
+add-zsh-hook preexec _bz_tab_title_preexec
+
 # Source per-machine overrides (gitignored). Coloca env vars privadas,
 # aliases de trabalho, AWS_PROFILE alternativo aqui.
 [[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
