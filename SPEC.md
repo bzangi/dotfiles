@@ -28,7 +28,7 @@ Versionar configs pessoais (terminal + macOS) de forma que:
 | `~/.zshrc` | ✓ | stow `zsh` |
 | `~/.gitconfig` + `~/.gitignore_global` | ✓ | stow `git` |
 | `~/.config/starship-*.toml` (light + dark) | ✓ | stow `starship` |
-| `~/.claude/` (CLAUDE.md, settings, memory) | ✓ | stow `claude` |
+| `~/.claude/` (CLAUDE.md, settings, statuslines, themes, hooks) | ✓ | stow `claude` |
 | VS Code `settings.json` + `keybindings.json` | ✓ | cp script (path em `~/Library`) |
 | VS Code extensions list | ✗ | sincronizado via Settings Sync (GitHub auth) do próprio VS Code |
 | Homebrew formulas + casks | ✓ | `Brewfile` + `brew bundle install` |
@@ -79,7 +79,11 @@ dotfiles/
 │       └── .claude/
 │           ├── CLAUDE.md
 │           ├── settings.json
-│           └── memory/           # subarvore com .md files
+│           ├── statusline-command.sh     # status line principal
+│           ├── subagent-statusline.jq    # uma linha por subagente
+│           ├── themes/                   # gojo-limitless-{dark,light}.json
+│           └── hooks/
+│               └── progress-keepalive.zsh  # mantém a barra OSC 9;4 do Ghostty viva
 │
 ├── vscode/                       # paths em ~/Library/* — não stow, copy
 │   ├── settings.json

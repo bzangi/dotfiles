@@ -213,6 +213,32 @@ pelo slot certo. **Fonte única de verdade = modo do macOS.**
 **⚠ system-wide:** `theme dark` troca o **macOS inteiro** pra dark (Safari, Finder,
 VS Code, tudo), não só o terminal. É intencional — vira um toggle único de tema.
 
+**Claude Code segue o mesmo modo, mas só no launch.** Tema custom
+(`~/.claude/themes/<slug>.json`) tem `base` fixo e **não** acompanha `"theme": "auto"`
+(verificado no binário 2.1.308). Por isso a função `claude()` no `.zshrc` lê o modo do
+macOS e passa `--settings '{"theme":"custom:gojo-limitless-<modo>"}'`. Consequências:
+- Sessão aberta antes de um `theme light|dark` mantém a variante antiga até reabrir.
+- `/theme` numa sessão lançada pelo wrapper não pega (`--settings` tem precedência sobre o
+  `settings.json`). O `theme` do `settings.json` só vale fora do zsh (IDE, outros launchers).
+- Ao criar/editar tema: conferir que todo override existe na paleta embutida do binário
+  (token desconhecido é ignorado calado).
+
+**Accent color = cor da barra de progresso do Ghostty.** A barra (OSC 9;4) usa
+`.accentColor` do SwiftUI, sem config própria; o Ghostty não define accent, então vale o
+do macOS (`AppleAccentColor`, versionado em `macos/defaults.sh` como Purple).
+
+**Barra de progresso viva durante o turno (`hooks/progress-keepalive.zsh`).** O Ghostty
+apaga o progresso 15s após o último update (`SurfaceView_AppKit.swift`, `15.0` fixo) e o
+Claude Code só emite OSC 9;4 na troca de estado, então a barra sumia no meio de turnos
+longos. Hooks async no `settings.json`: `UserPromptSubmit` sobe um loop que reenvia
+`indeterminate` a cada 10s no tty do processo `claude`; `Pre/PostToolUse` renovam um
+heartbeat; `Stop`/`StopFailure`/`SessionEnd` matam o loop e limpam a barra. Estado em
+`$TMPDIR/claude-progress/<session_id>` (`<pid> <tty>`, mtime = heartbeat).
+- **Esc não dispara hook:** após interrupt a barra fica até o heartbeat expirar (`TTL=180`
+  no script). O mesmo TTL apaga a barra num turno > 3 min sem nenhuma tool.
+- Debug: `pgrep -fl progress-keepalive` + `cat $TMPDIR/claude-progress/*`. Pra rastrear
+  eventos, logar `$event` no topo do script temporariamente.
+
 **⚠ Automation/TCC no bootstrap:** o 1º `set dark mode` numa máquina nova dispara
 o prompt de permissão de **Automation** do macOS (terminal → System Events) uma
 vez. Aprovar; depois é silencioso. Sem aprovação o `osascript` falha quieto
