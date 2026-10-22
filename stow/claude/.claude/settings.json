@@ -3,18 +3,80 @@
     "defaultMode": "auto"
   },
   "model": "opus",
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "zsh $HOME/.claude/hooks/progress-keepalive.zsh",
+            "async": true
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "zsh $HOME/.claude/hooks/progress-keepalive.zsh",
+            "async": true
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "zsh $HOME/.claude/hooks/progress-keepalive.zsh",
+            "async": true
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "zsh $HOME/.claude/hooks/progress-keepalive.zsh",
+            "async": true
+          }
+        ]
+      }
+    ],
+    "StopFailure": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "zsh $HOME/.claude/hooks/progress-keepalive.zsh",
+            "async": true
+          }
+        ]
+      }
+    ],
+    "SessionEnd": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "zsh $HOME/.claude/hooks/progress-keepalive.zsh",
+            "async": true
+          }
+        ]
+      }
+    ]
+  },
   "statusLine": {
     "type": "command",
     "command": "zsh $HOME/.claude/statusline-command.sh"
   },
-  "footerLinksRegexes": [
-    {
-      "type": "regex",
-      "pattern": "\\b(?<key>ST-\\d+)\\b",
-      "url": "https://bullcredtech-team-q04gewts.atlassian.net/browse/{key}",
-      "label": "{key}"
-    }
-  ],
   "subagentStatusLine": {
     "type": "command",
     "command": "jq -c -f $HOME/.claude/subagent-statusline.jq"
@@ -93,7 +155,7 @@
       "effortLevel": "xhigh"
     },
     "claude-opus-5-5": {
-      "effortLevel": "high"
+      "effortLevel": "medium"
     },
     "claude-sonnet-5-5": {
       "effortLevel": "high"
@@ -152,76 +214,6 @@
       "**Trusted repo**: /Users/brunoz/Desktop/bull/bull-web-platform (github.com:BullCredTech/bull-web-platform.git) — private, confirmed via gh",
       "**Org-specific CLIs**: None configured",
       "routine under apps/bms/, apps/bull-negocia/, apps/cliente-autoservico/, apps/b2b-dashboard/, packages/*, docs/superpowers/ prefixes within this repo"
-    ]
-  },
-  "hooks": {
-    "UserPromptSubmit": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "zsh $HOME/.claude/hooks/progress-keepalive.zsh",
-            "async": true
-          }
-        ]
-      }
-    ],
-    "PreToolUse": [
-      {
-        "matcher": "*",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "zsh $HOME/.claude/hooks/progress-keepalive.zsh",
-            "async": true
-          }
-        ]
-      }
-    ],
-    "PostToolUse": [
-      {
-        "matcher": "*",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "zsh $HOME/.claude/hooks/progress-keepalive.zsh",
-            "async": true
-          }
-        ]
-      }
-    ],
-    "Stop": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "zsh $HOME/.claude/hooks/progress-keepalive.zsh",
-            "async": true
-          }
-        ]
-      }
-    ],
-    "StopFailure": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "zsh $HOME/.claude/hooks/progress-keepalive.zsh",
-            "async": true
-          }
-        ]
-      }
-    ],
-    "SessionEnd": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "zsh $HOME/.claude/hooks/progress-keepalive.zsh",
-            "async": true
-          }
-        ]
-      }
     ]
   }
 }
