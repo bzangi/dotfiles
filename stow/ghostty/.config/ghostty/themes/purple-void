@@ -1,0 +1,31 @@
+# Purple Void — port of the VS Code theme (ErykOlliver.purple-void 1.0.1).
+# Terminal colors copied as-is from the theme's terminal.* keys (VS Code Dark+ ANSI).
+# The theme sets no terminal.background (VS Code would fall back to the grey
+# panel.background #1e1e1e), so the editor background is used instead.
+background = #0c0a1b
+foreground = #cccccc
+# VS Code: terminalCursor.foreground = cursor, terminalCursor.background = text under it
+cursor-color = #ffffff
+cursor-text = #0087ff
+# terminal.selectionBackground #ffffff40 blended onto the background
+selection-background = #494754
+selection-foreground = cell-foreground
+
+# normal
+palette = 0=#000000
+palette = 1=#cd3131
+palette = 2=#0dbc79
+palette = 3=#e5e510
+palette = 4=#2472c8
+palette = 5=#bc3fbc
+palette = 6=#11a8cd
+palette = 7=#e5e5e5
+# bright
+palette = 8=#666666
+palette = 9=#f14c4c
+palette = 10=#23d18b
+palette = 11=#f5f543
+palette = 12=#3b8eea
+palette = 13=#d670d6
+palette = 14=#29b8db
+palette = 15=#e5e5e5
