@@ -22,3 +22,6 @@ id_ed25519*
 
 # Backup dirs created by 04-stow.sh
 .dotfiles-backup/
+
+# snapshots locais antes de mexer em configs (não versionar)
+backups/
