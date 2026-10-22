@@ -31,7 +31,8 @@ defaults write com.apple.dock show-recents -bool false
 
 # =============================== APPEARANCE ==============================
 defaults write -g AppleShowScrollBars -string "Always"
-defaults write -g AppleHighlightColor -string "0.698039 0.843137 1.000000 Blue"
+defaults write -g AppleHighlightColor -string "0.968627 0.831373 1.000000 Purple"
+defaults write -g AppleAccentColor -int 5   # Purple: tinge a barra de progresso do Ghostty (.accentColor)
 
 # =============================== HOT CORNERS =============================
 # Action codes: 0=none, 2=mission-control, 4=desktop, 5=screen-saver,
