@@ -172,7 +172,7 @@
   "timeFormat": "24-hour",
   "showThinkingSummaries": true,
   "skipWorkflowUsageWarning": true,
-  "theme": "custom:gojo-limitless-dark",
+  "theme": "custom:purple-void",
   "editorMode": "normal",
   "preferredNotifChannel": "ghostty",
   "autoCompactEnabled": true,

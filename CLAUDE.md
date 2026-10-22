@@ -216,7 +216,11 @@ VS Code, tudo), não só o terminal. É intencional — vira um toggle único de
 **Claude Code segue o mesmo modo, mas só no launch.** Tema custom
 (`~/.claude/themes/<slug>.json`) tem `base` fixo e **não** acompanha `"theme": "auto"`
 (verificado no binário 2.1.308). Por isso a função `claude()` no `.zshrc` lê o modo do
-macOS e passa `--settings '{"theme":"custom:gojo-limitless-<modo>"}'`. Consequências:
+macOS e passa `--settings '{"theme":"custom:<slug>"}'` (light = `gojo-limitless-light`,
+dark = o escolhido por `theme gojo|purple-void`). Consequências:
+- A escolha do dark mora em `~/.config/ghostty/theme.local` (por máquina, fora do repo),
+  incluído pelo config do Ghostty por path **absoluto**: path relativo resolve ao lado do
+  alvo do symlink do stow, ou seja, dentro do repo.
 - Sessão aberta antes de um `theme light|dark` mantém a variante antiga até reabrir.
 - `/theme` numa sessão lançada pelo wrapper não pega (`--settings` tem precedência sobre o
   `settings.json`). O `theme` do `settings.json` só vale fora do zsh (IDE, outros launchers).

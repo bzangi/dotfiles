@@ -208,25 +208,41 @@ theme() {
       _bz_git_colors_dark
       _bz_macos_appearance dark
       ;;
+    gojo|purple-void)
+      # Tema do modo dark (o light é sempre gojo). Mesmo slug no Ghostty e no
+      # Claude Code. Fica em ~/.config/ghostty/theme.local (fora do repo), que o
+      # config do Ghostty inclui e o wrapper claude() lê.
+      local slug=$1; [[ $slug == gojo ]] && slug=gojo-limitless-dark
+      print "theme = light:gojo-limitless-light,dark:$slug" > ~/.config/ghostty/theme.local
+      osascript -e 'tell application "Ghostty" to perform action "reload_config" on focused terminal of selected tab of front window' >/dev/null 2>&1 \
+        || echo "recarregue o Ghostty (cmd+shift+,)"
+      theme dark
+      ;;
     "")
       local current=light
       [[ $STARSHIP_CONFIG == *dark* ]] && current=dark
-      echo "tema atual: $current — uso: theme light|dark"
+      echo "tema atual: $current (dark = $(_bz_dark_theme)) — uso: theme light|dark|gojo|purple-void"
       ;;
     *)
-      echo "uso: theme light|dark"
+      echo "uso: theme light|dark|gojo|purple-void"
       return 1
       ;;
   esac
 }
 
+# Slug do tema dark escolhido por `theme gojo|purple-void` (default: gojo).
+_bz_dark_theme() {
+  local s=$(sed -n 's/.*dark:\([^,]*\).*/\1/p' ~/.config/ghostty/theme.local 2>/dev/null)
+  print ${s:-gojo-limitless-dark}
+}
+
 # Claude Code: tema custom (~/.claude/themes) tem base fixa e não segue o modo do
-# macOS como "auto". Escolhe a variante Gojo pelo modo atual a cada launch.
-# Não troca ao vivo: sessão aberta antes de um `theme` mantém a variante antiga.
+# macOS como "auto". Escolhe o tema pelo modo atual a cada launch (dark =
+# _bz_dark_theme). Não troca ao vivo: sessão aberta antes mantém o tema antigo.
 claude() {
-  local mode=light
-  defaults read -g AppleInterfaceStyle 2>/dev/null | grep -qi dark && mode=dark
-  command claude --settings "{\"theme\":\"custom:gojo-limitless-$mode\"}" "$@"
+  local t=gojo-limitless-light
+  defaults read -g AppleInterfaceStyle 2>/dev/null | grep -qi dark && t=$(_bz_dark_theme)
+  command claude --settings "{\"theme\":\"custom:$t\"}" "$@"
 }
 
 
