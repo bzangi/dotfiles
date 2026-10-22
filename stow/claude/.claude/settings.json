@@ -7,6 +7,18 @@
     "type": "command",
     "command": "zsh $HOME/.claude/statusline-command.sh"
   },
+  "footerLinksRegexes": [
+    {
+      "type": "regex",
+      "pattern": "\\b(?<key>ST-\\d+)\\b",
+      "url": "https://bullcredtech-team-q04gewts.atlassian.net/browse/{key}",
+      "label": "{key}"
+    }
+  ],
+  "subagentStatusLine": {
+    "type": "command",
+    "command": "jq -c -f $HOME/.claude/subagent-statusline.jq"
+  },
   "enabledPlugins": {
     "github@claude-plugins-official": false,
     "frontend-design@claude-plugins-official": true,
@@ -24,7 +36,19 @@
     }
   },
   "feedbackDrafts": "off",
+  "spinnerVerbs": {
+    "mode": "append",
+    "verbs": [
+      "Expanding Domain",
+      "Casting Hollow Purple",
+      "Activating Six Eyes",
+      "Opening Unlimited Void",
+      "Reversing Cursed Technique",
+      "Charging Black Flash"
+    ]
+  },
   "syntaxHighlightingDisabled": false,
+  "maxProseWidth": 110,
   "effortLevel": "low",
   "modelSettings": {
     "claude-fable-5": {
@@ -54,6 +78,8 @@
   },
   "advisorModel": "fable",
   "tui": "fullscreen",
+  "timeFormat": "24-hour",
+  "showThinkingSummaries": true,
   "skipWorkflowUsageWarning": true,
   "theme": "custom:gojo-limitless-dark",
   "editorMode": "normal",
