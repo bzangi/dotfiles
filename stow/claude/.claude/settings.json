@@ -24,6 +24,7 @@
     }
   },
   "feedbackDrafts": "off",
+  "syntaxHighlightingDisabled": false,
   "effortLevel": "low",
   "modelSettings": {
     "claude-fable-5": {
@@ -54,7 +55,7 @@
   "advisorModel": "fable",
   "tui": "fullscreen",
   "skipWorkflowUsageWarning": true,
-  "theme": "auto",
+  "theme": "custom:gojo-limitless-dark",
   "editorMode": "normal",
   "preferredNotifChannel": "ghostty",
   "autoCompactEnabled": true,

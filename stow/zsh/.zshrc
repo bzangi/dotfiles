@@ -220,6 +220,15 @@ theme() {
   esac
 }
 
+# Claude Code: tema custom (~/.claude/themes) tem base fixa e não segue o modo do
+# macOS como "auto". Escolhe a variante Gojo pelo modo atual a cada launch.
+# Não troca ao vivo: sessão aberta antes de um `theme` mantém a variante antiga.
+claude() {
+  local mode=light
+  defaults read -g AppleInterfaceStyle 2>/dev/null | grep -qi dark && mode=dark
+  command claude --settings "{\"theme\":\"custom:gojo-limitless-$mode\"}" "$@"
+}
+
 
 # Usa GNU ls (gls do coreutils) em vez do BSD ls do macOS — para que respeite
 # o LS_COLORS calibrado (BSD ls ignora LS_COLORS, usa só o LSCOLORS limitado a 8 cores).
