@@ -124,5 +124,75 @@
       "**Org-specific CLIs**: None configured",
       "routine under apps/bms/, apps/bull-negocia/, apps/cliente-autoservico/, apps/b2b-dashboard/, packages/*, docs/superpowers/ prefixes within this repo"
     ]
+  },
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "zsh $HOME/.claude/hooks/progress-keepalive.zsh",
+            "async": true
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "zsh $HOME/.claude/hooks/progress-keepalive.zsh",
+            "async": true
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "zsh $HOME/.claude/hooks/progress-keepalive.zsh",
+            "async": true
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "zsh $HOME/.claude/hooks/progress-keepalive.zsh",
+            "async": true
+          }
+        ]
+      }
+    ],
+    "StopFailure": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "zsh $HOME/.claude/hooks/progress-keepalive.zsh",
+            "async": true
+          }
+        ]
+      }
+    ],
+    "SessionEnd": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "zsh $HOME/.claude/hooks/progress-keepalive.zsh",
+            "async": true
+          }
+        ]
+      }
+    ]
   }
 }
