@@ -24,6 +24,11 @@
 
 - Branch `main` sempre limpa, sem trabalho solto nela. Qualquer mudança de código usa worktree + branch dedicada — nunca commitar direto na `main`.
 
+## Subagentes
+
+- Achado de review corrigido não ganha re-review. A rodada de fix fecha quando o relatório do fix traz o teste que cobre a mudança, o comando e a saída verde. Re-review só quando o lote corrigido tem finding Critical. Vale para o loop de fix da `superpowers:subagent-driven-development`, inclusive a onda de fix da revisão final.
+- Fix fechado sem re-review vai para o ledger, e a revisão final da branch inteira recebe essa lista.
+
 ## Configs globais (symlink / dotfiles stow)
 
 - Meus arquivos globais em `~/.claude/` são symlinks gerenciados por GNU stow. Os alvos reais ficam em `~/Desktop/personal/dotfiles/stow/claude/.claude/`.
