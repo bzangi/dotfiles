@@ -75,7 +75,8 @@
   },
   "statusLine": {
     "type": "command",
-    "command": "zsh $HOME/.claude/statusline-command.sh"
+    "command": "zsh $HOME/.claude/statusline-command.sh",
+    "refreshInterval": 60
   },
   "subagentStatusLine": {
     "type": "command",
