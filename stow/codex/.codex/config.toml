@@ -6,15 +6,6 @@ model_reasoning_effort = "medium"
 notify = ["/Users/brunoz/.codex/computer-use/Codex Computer Use.app/Contents/SharedSupport/SkyComputerUseClient.app/Contents/MacOS/SkyComputerUseClient", "turn-ended"]
 service_tier = "default"
 
-[projects."/Users/brunoz/Desktop/bull/bull-module-assets"]
-trust_level = "trusted"
-
-[projects."/Users/brunoz/Documents/Codex/2026-09-21/es"]
-trust_level = "trusted"
-
-[projects."/Users/brunoz/Documents/Codex/2026-10-06/co"]
-trust_level = "trusted"
-
 [tui]
 theme = "auto"
 status_line = ["project-name", "git-branch", "model-with-reasoning", "context-used", "five-hour-limit"]
