@@ -23,6 +23,7 @@
 ## Fluxo de trabalho (git)
 
 - Branch `main` sempre limpa, sem trabalho solto nela. Qualquer mudança de código usa worktree + branch dedicada — nunca commitar direto na `main`.
+- Worktree mora dentro do repo, em `<repo>/.claude/worktrees/<slug>` (o diretório do `EnterWorktree`, ignorado pelo `~/.config/git/ignore`). Nunca irmã do repo (`../<repo>-<slug>`) nem em `~/Desktop/bull/.worktrees/`: a raiz do workspace só tem os repos. Mergeou, remove a worktree.
 
 ## Subagentes
 
